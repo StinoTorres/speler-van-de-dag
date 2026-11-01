@@ -561,6 +561,15 @@ function confetti(){
     for(const p of Q){ p.vy+=.45*dpr; p.vx*=.99; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.globalAlpha=Math.max(0,1-t/3500); ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2); ctx.restore(); }
     if(t<3500) requestAnimationFrame(f); else c.remove(); })(t0);
 }
+// Bericht in de winpop-up, per aantal gokken (1 t/m 6)
+const CHEER_BY_N = [
+  "Eerste bal raak. Scouting op topniveau 🎯",
+  "Twee pogingen: jij kent de Eredivisie door en door.",
+  "Drie keer kijken, één keer raak. Sterk gescout!",
+  "Na wat speurwerk toch gevonden 🔎",
+  "Die zat diep verstopt, maar jij vond hem.",
+  "Winnende goal in de blessuretijd ⏱️"
+];
 function celebrate(v){
   const a = v.answer, n = v.rows.length, first = n===1;
   const full = (P[a.code] && P[a.code].full) || a.web;
@@ -569,7 +578,7 @@ function celebrate(v){
   box.append(el("div",{class:"eyebrow"}, first ? "In één keer!" : "Geraden in "+n+"/6"),
     el("h2",{}, first ? "Wat een kenner." : n<=3 ? "Goed geraden!" : n<6 ? "Netjes!" : "Op het nippertje!"),
     el("p",{}, "Het was ", el("b",{}, full), " (" + teamN(a.team) + ")."),
-    el("p",{class:"managore"}, "Jij bent een echte managore ", el("span",{style:"white-space:nowrap"},"fantasia 🧙‍♂️")),
+    el("p",{class:"cheer"}, CHEER_BY_N[n-1]),
     el("div",{class:"pts num"}, (v.practice ? "Oefenronde" : "+"+v.points+" ptn")),
     el("div",{class:"row"}, !v.practice ? el("button",{class:"btn",onclick:()=>copyShare(v)},"📤 Deel resultaat") : null, el("button",{class:"btn ghost",onclick:releaseHold},"Dank je")));
   openModal(box, false);
