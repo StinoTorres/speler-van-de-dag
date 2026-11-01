@@ -505,8 +505,8 @@ const KITS = {
 // Keepersshirts: een felle effen kleur die afsteekt tegen het veldshirt van de club
 const GK_KITS = {
   AJA:"#2b2b2b", AZ:"#7ed957", GRO:"#ff8a00", TWE:"#2b2b2b", UTR:"#00b46e", FEY:"#2b2b2b", FOR:"#3a9bdc", GAE:"#2b2b2b",
-  NEC:"#ffd23f", PEC:"#ff8a00", PSV:"#2b2b2b", HEE:"#ffd23f", SPA:"#2b2b2b", TEL:"#ff6fa8", EXC:"#3a9bdc", ADO:"#2b2b2b",
-  CAM:"#2b2b2b", WIL:"#ffd23f"
+  NEC:"#ffd600", PEC:"#ff8a00", PSV:"#2b2b2b", HEE:"#ffd600", SPA:"#2b2b2b", TEL:"#ff6fa8", EXC:"#3a9bdc", ADO:"#2b2b2b",
+  CAM:"#2b2b2b", WIL:"#ffd600"
 };
 function gkKit(club){
   const b = GK_KITS[club] || "#7ed957"; const dark = lum(b) < 0.45;
@@ -526,7 +526,7 @@ function shirtSVG(p){
   const busy = k.st || k.band || k.half;
   const outline = 'stroke="rgba(0,0,0,.22)" stroke-width="2.5" stroke-linejoin="round"';
   return `<svg class="shirt" viewBox="0 0 200 200" aria-hidden="true">
-    <defs><radialGradient id="${id}g" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffb703" stop-opacity=".35"/><stop offset="1" stop-color="#2bd67b" stop-opacity=".12"/></radialGradient>
+    <defs><radialGradient id="${id}g" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#a7f6ff" stop-opacity=".35"/><stop offset="1" stop-color="#00ff87" stop-opacity=".12"/></radialGradient>
       <clipPath id="${id}c"><path d="${body}"/></clipPath>
       <linearGradient id="${id}s" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".5" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient></defs>
     <circle cx="100" cy="100" r="96" fill="url(#${id}g)"/>
@@ -554,7 +554,7 @@ function ballRain(n){
 function confetti(){
   const c=document.createElement("canvas"); c.className="confetti"; document.body.appendChild(c);
   const ctx=c.getContext("2d"), dpr=window.devicePixelRatio||1, W=c.width=innerWidth*dpr, H=c.height=innerHeight*dpr;
-  const cols=["#0b1f3a","#2bd67b","#ffb703","#ff6a00","#ffd23f","#ffffff"];
+  const cols=["#610f8a","#00ff87","#a7f6ff","#ec1846","#ffd600","#ffffff"];
   const Q=Array.from({length:180},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.35,vx:(Math.random()-.5)*14*dpr,vy:(-Math.random()*16-6)*dpr,s:(5+Math.random()*7)*dpr,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[Math.floor(Math.random()*cols.length)]}));
   const t0=performance.now();
   (function f(now){ const t=now-t0; ctx.clearRect(0,0,W,H);
@@ -776,7 +776,7 @@ function renderMe(){
 document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>{ S.tab=b.dataset.tab; render(); if(S.tab==="board") loadBoard(); }));
 window.addEventListener("hashchange",()=>{ const m = location.hash.match(/^#poule-([A-Za-z0-9]{6})$/); if(m){ S.pendingJoin = m[1].toUpperCase(); handlePendingJoin(); } });
 $("#helpBtn").addEventListener("click",()=>openModal(howTo()));
-function syncThemeLbl(){ $("#themeLbl").textContent = document.documentElement.dataset.theme==="dark" ? "dag" : "nacht"; }
+function syncThemeLbl(){ $("#themeBtn").setAttribute("aria-label", document.documentElement.dataset.theme==="dark" ? "Dagmodus" : "Nachtmodus"); }
 $("#themeBtn").addEventListener("click",()=>{ const t = document.documentElement.dataset.theme==="dark" ? "light" : "dark"; document.documentElement.dataset.theme=t; try{ localStorage.setItem("dnl:theme",t); }catch(e){} syncThemeLbl(); });
 syncThemeLbl();
 setInterval(()=>{ if(dayStr()!==S.today){ S.today=dayStr(); S.mode="daily"; S.rows=null; refresh().then(maybeYesterday); } }, 30000);

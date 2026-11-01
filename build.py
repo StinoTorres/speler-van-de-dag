@@ -3,7 +3,7 @@
 
 - vult {{BRAND}}, {{TAGLINE}}, {{URL}} enz. in vanuit site.json
 - voegt public/data/players.json in (zodat zoeken meteen werkt, ook offline)
-- schrijft public/favicon.svg (de leeuw uit de kop)
+- schrijft public/favicon.svg (kopie van src/logo.svg)
 - zet in public/sw.js een nieuwe cacheversie, zodat spelers de nieuwe versie krijgen
 
 Gebruik: python3 build.py
@@ -27,9 +27,7 @@ page = head + "<script>\n" + js + "</script>\n</body>\n</html>\n"
 page = re.sub(r"\{\{([A-Z_]+)\}\}", lambda m: repl[m.group(1)], page)
 open(P("public", "index.html"), "w").write(page)
 
-svg = re.search(r'<svg class="day".*?</svg>', page, re.S).group(0)
-svg = svg.replace(' class="day"', "").replace(' aria-hidden="true"', ' xmlns="http://www.w3.org/2000/svg"')
-open(P("public", "favicon.svg"), "w").write(svg)
+open(P("public", "favicon.svg"), "w").write(open(P("src", "logo.svg")).read())
 
 # nieuwe cacheversie voor de service worker
 ver = hashlib.sha1(page.encode()).hexdigest()[:8]

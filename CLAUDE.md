@@ -12,7 +12,7 @@ leg keuzes kort en in gewone taal uit.
 ```bash
 python3 build.py                       # src/ + site.json + public/data/players.json → public/index.html
 python3 scripts/update_data.py         # nieuwe spelersdata (stand na laatst afgeronde speelronde)
-node scripts/make_images.js            # iconen + og.jpg opnieuw (na build.py)
+node scripts/make_images.js            # iconen + og.jpg opnieuw (uit src/logo.svg en site.json)
 # testen: zie tests/README.md (lokale Postgres + tests/fake_supabase.js + node tests/e2e.js)
 ```
 
@@ -65,8 +65,10 @@ direct: die wordt gebouwd. Bewerk `src/index.html` (opmaak, CSS, markup) en `src
 ## Stijl
 
 - Vanilla JS, één `el()`-helper voor DOM, state in object `S`, alles opnieuw tekenen via `render()`.
-- Kleuren via CSS-variabelen in `src/index.html` (`:root` en `[data-theme=dark]`). Eigen palet (navy/oranje),
-  bewust niet het FPL- of Eredivisie-palet.
+- Kleuren via CSS-variabelen in `src/index.html` (`:root` en `[data-theme=dark]`). Palet afgeleid van ESPN Fantasy
+  Voetbal (paars #610f8a, groen #00ff87, lichtblauw #a7f6ff, geel #ffd600, zwarte knoppen #191516), op verzoek van de
+  eigenaar. Geen mascotte; logo = vier tegeltjes (`src/logo.svg`), ook gebruikt voor favicon, iconen en og.jpg.
+  Lettertype: Inter/systeemletter (geen externe fonts laden, i.v.m. privacy).
 - Korte, concrete Nederlandse teksten; geen jargon richting spelers.
 
 ## Open taken (zie ook docs/PLAN.md → Roadmap)

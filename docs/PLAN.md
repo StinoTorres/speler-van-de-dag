@@ -19,7 +19,7 @@ mogelijk ("kleine speler"). Delen als blokjes in de groepsapp, poules met week- 
 
 ## 2. Wat er al staat (deze repo)
 
-- Werkend spel (web-app, installeerbaar, telefoon-eerst, dag/nacht), eigen kleurpalet.
+- Werkend spel (web-app, installeerbaar, telefoon-eerst, dag/nacht), kleuren in de stijl van ESPN Fantasy Voetbal.
 - Server in Supabase: antwoord, scores en hints alleen op de server; antwoorden worden willekeurig gepland en staan
   nergens in de code; geen openbare ranglijst, alleen poules.
 - Automatische data-update elke 3 uur (alleen na een afgeronde speelronde), houdt Supabase ook wakker.
@@ -82,13 +82,17 @@ Aannames:
 2. ⚠️ **Merken en beeld.** Gebruik geen clublogo's, geen Eredivisie- of ESPN-logo's en geen spelersfoto's. Clubnamen
    gebruiken om een speler te beschrijven is gangbaar; de disclaimer staat in de footer. Eredivisie CV meldt dat de
    rechten op clubnamen, logo's en beeldrechten bij hen of hun leveranciers liggen.
-3. ⚠️ **Naam.** "Differentiale" lijkt op "The Daily Differential" (FPL-spel). Kies voor de publieke versie een eigen
+3. ⚠️ **Kleuren.** Het thema gebruikt de kleuren van ESPN Fantasy Voetbal. Kleuren alleen zijn meestal geen
+   probleem, maar met dezelfde kleuren, hetzelfde onderwerp en dezelfde data kan het lijken alsof het een product
+   van ESPN of de Eredivisie is. Houd daarom de disclaimer zichtbaar, gebruik geen ESPN- of Eredivisie-namen in je
+   merk of domein, en overweeg een eigen accentkleur zodra je commercieel live gaat.
+4. ⚠️ **Naam.** "Differentiale" lijkt op "The Daily Differential" (FPL-spel). Kies voor de publieke versie een eigen
    naam en check het merkenregister (BOIP) en de domeinnaam.
-4. **Privacy (AVG).** Er zijn geen accounts, e-mails of echte namen. Wel managernaam, uitslagen en een ID in de
+5. **Privacy (AVG).** Er zijn geen accounts, e-mails of echte namen. Wel managernaam, uitslagen en een ID in de
    browser. Maak `src/privacy.html` af (TODO's), kies de EU-regio bij Supabase en regel verwijderverzoeken.
-5. **Hosting.** Volgens GitHub is GitHub Pages niet bedoeld als gratis webhosting voor een online bedrijf. Gebruik voor
+6. **Hosting.** Volgens GitHub is GitHub Pages niet bedoeld als gratis webhosting voor een online bedrijf. Gebruik voor
    de versie met advertenties Cloudflare Pages, Netlify of Vercel met een eigen domein.
-6. **Kansspelen.** Er wordt niet om geld gespeeld en er zijn geen prijzen, dus dit valt niet onder de kansspelregels.
+7. **Kansspelen.** Er wordt niet om geld gespeeld en er zijn geen prijzen, dus dit valt niet onder de kansspelregels.
    Wil je later prijzen weggeven, check dan eerst de regels voor promotionele kansspelen.
 
 ## 5. Groei
