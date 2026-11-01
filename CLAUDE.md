@@ -1,8 +1,9 @@
-# CLAUDE.md — Differentiale NL (werktitel)
+# CLAUDE.md — Speler van de Dag
 
 Dagelijkse Eredivisie-puzzel voor het algemene publiek: raad elke dag de geheime speler in zes pogingen
 (club, positie, fantasy-prijs, eigendom, seizoenspunten, punten laatste speelronde). Doel: groeien en
-verdienen met advertenties. Afgeleid van "Differentiale", een FPL-versie voor een vriendengroep.
+verdienen met advertenties. Naam: "Speler van de Dag" (gekozen 1 nov 2026, staat in `site.json`). Afgeleid van "Differentiale", een FPL-versie
+voor een vriendengroep.
 
 Taal: alles wat spelers zien is Nederlands. Code-commentaar ook Nederlands. De eigenaar is geen ontwikkelaar:
 leg keuzes kort en in gewone taal uit.
@@ -73,7 +74,7 @@ direct: die wordt gebouwd. Bewerk `src/index.html` (opmaak, CSS, markup) en `src
 
 ## Open taken (zie ook docs/PLAN.md → Roadmap)
 
-- [ ] Definitieve naam + domein kiezen; `site.json` invullen; `node scripts/make_images.js`.
+- [ ] Domein kiezen en in `site.json` zetten (naam is "Speler van de Dag"); merkenregister checken.
 - [ ] Juridische check databron (ESPN Fantasy Voetbal) of overstappen op gelicentieerde data.
 - [ ] Privacy-tekst afmaken (TODO's in `src/privacy.html`), CMP + AdSense aanvragen, `public/ads.txt` invullen.
 - [ ] Hosting naar Cloudflare Pages met eigen domein; Supabase-project in EU-regio.

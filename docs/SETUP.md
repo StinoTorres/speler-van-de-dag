@@ -3,7 +3,7 @@
 Volg de stappen op volgorde. Bij elke stap staat wie het doet: **jij** (in je browser) of **Claude Code** (in deze repo).
 
 ## 1. Repository op GitHub — jij
-1. Maak een nieuwe repository, bijvoorbeeld `differentiale-nl`. Openbaar mag, want er staan geen antwoorden of
+1. Maak een nieuwe repository, bijvoorbeeld `speler-van-de-dag`. Openbaar mag, want er staan geen antwoorden of
    geheimen in.
 2. Upload deze map, of laat Claude Code pushen.
 3. Open de map in Claude Code (`claude` in de projectmap). `CLAUDE.md` wordt dan automatisch gelezen.

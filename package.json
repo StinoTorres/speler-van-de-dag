@@ -1,7 +1,7 @@
 {
-  "name": "differentiale-nl",
+  "name": "speler-van-de-dag",
   "private": true,
-  "description": "Dagelijkse Eredivisie-puzzel (werktitel Differentiale NL)",
+  "description": "Dagelijkse Eredivisie-puzzel (Speler van de Dag)",
   "scripts": {
     "build": "python3 build.py",
     "images": "node scripts/make_images.js",

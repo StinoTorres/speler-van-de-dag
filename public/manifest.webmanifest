@@ -1,6 +1,6 @@
 {
-  "name": "Differentiale",
-  "short_name": "Differentiale",
+  "name": "Speler van de Dag",
+  "short_name": "Speler van de Dag",
   "description": "Raad elke dag de geheime Eredivisie-speler in zes pogingen. Gratis, met poules voor je vrienden.",
   "lang": "nl",
   "start_url": "./",

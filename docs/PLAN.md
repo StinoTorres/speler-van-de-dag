@@ -1,6 +1,6 @@
 # Plan: dagelijkse Eredivisie-puzzel voor het publiek
 
-*Eerste opzet, 1 november 2026. Werktitel: Differentiale (naam staat in `site.json`).*
+*Eerste opzet, 1 november 2026. Naam: **Speler van de Dag** (staat in `site.json`).*
 
 ## 1. Het product
 
@@ -86,8 +86,8 @@ Aannames:
    probleem, maar met dezelfde kleuren, hetzelfde onderwerp en dezelfde data kan het lijken alsof het een product
    van ESPN of de Eredivisie is. Houd daarom de disclaimer zichtbaar, gebruik geen ESPN- of Eredivisie-namen in je
    merk of domein, en overweeg een eigen accentkleur zodra je commercieel live gaat.
-4. ⚠️ **Naam.** "Differentiale" lijkt op "The Daily Differential" (FPL-spel). Kies voor de publieke versie een eigen
-   naam en check het merkenregister (BOIP) en de domeinnaam.
+4. ⚠️ **Naam.** "Speler van de Dag" is duidelijk maar algemeen: lastig als merk te beschermen en veel concurrentie
+   in zoekresultaten. Check het merkenregister (BOIP) en of de domeinnaam vrij is.
 5. **Privacy (AVG).** Er zijn geen accounts, e-mails of echte namen. Wel managernaam, uitslagen en een ID in de
    browser. Maak `src/privacy.html` af (TODO's), kies de EU-regio bij Supabase en regel verwijderverzoeken.
 6. **Hosting.** Volgens GitHub is GitHub Pages niet bedoeld als gratis webhosting voor een online bedrijf. Gebruik voor
@@ -116,7 +116,7 @@ Aannames:
 
 ## 7. Openstaande beslissingen voor de eigenaar
 
-- [ ] Definitieve naam en domein.
+- [ ] Domein (naam: Speler van de Dag).
 - [ ] Databron: huidige bron (risico), licentie aanvragen, of andere API.
 - [ ] Eenmanszaak of bv voor de inkomsten.
 - [ ] Hoeveel advertenties: één plek (rustig) of twee plekken plus een vaste balk onderin (meer opbrengst).

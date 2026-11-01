@@ -22,7 +22,7 @@ const BG = (s) => `radial-gradient(${s*0.9}px ${s*0.6}px at 100% 0%, rgba(167,24
   await p.setViewportSize({ width: 1200, height: 630 });
   await p.setContent(`<!DOCTYPE html><html><head><meta charset="utf-8"><style>
     body{margin:0;width:1200px;height:630px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:${BG(1200)};color:#fff}
-    .wrap{position:absolute;left:80px;top:80px;width:720px} h1{margin:0;font-size:100px;font-weight:800;letter-spacing:-.03em;line-height:1}
+    .wrap{position:absolute;left:80px;top:80px;width:720px} h1{margin:0;font-size:84px;font-weight:800;letter-spacing:-.03em;line-height:1}
     h1 span{background:linear-gradient(90deg,#a7f6ff,#00ff87);-webkit-background-clip:text;background-clip:text;color:transparent}
     p{margin:20px 0 44px;font-size:36px;font-weight:600;opacity:.9} .g{display:grid;grid-template-columns:repeat(6,96px);gap:12px;margin-bottom:12px}
     .t{height:84px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:28px;color:#610f8a;box-shadow:0 4px 0 rgba(0,0,0,.25)}

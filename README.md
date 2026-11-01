@@ -1,4 +1,4 @@
-# Differentiale NL (werktitel)
+# Speler van de Dag
 
 **De dagelijkse Eredivisie-puzzel.** Raad elke dag de geheime Eredivisie-speler in zes pogingen. Na elke gok zie je
 hoe dichtbij je zit op club, positie, fantasy-prijs, eigendom en punten. Met poules, weekbekers en delen in de
