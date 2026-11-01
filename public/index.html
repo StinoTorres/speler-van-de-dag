@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Differentiale · De dagelijkse Eredivisie-puzzel</title>
+<meta name="description" content="Raad elke dag de geheime Eredivisie-speler in zes pogingen. Gratis, met poules voor je vrienden.">
+<meta property="og:title" content="Differentiale">
+<meta property="og:description" content="Raad elke dag de geheime Eredivisie-speler in zes pogingen. Gratis, met poules voor je vrienden.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.nl/">
+<meta property="og:site_name" content="Differentiale">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:image" content="https://example.nl/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Differentiale, de dagelijkse Eredivisie-puzzel">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Differentiale">
+<meta name="twitter:description" content="Raad elke dag de geheime Eredivisie-speler in zes pogingen. Gratis, met poules voor je vrienden.">
+<meta name="twitter:image" content="https://example.nl/og.jpg">
+<link rel="canonical" href="https://example.nl/">
+<meta name="theme-color" content="#0b1f3a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Differentiale">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#0b1f3a; --purple2:#15335e; --pink:#ff6a00; --cyan:#ffb703; --green:#2bd67b;
+  --bg:#f2f4f8; --bg2:#e6eaf1; --card:#ffffff; --card2:#ffffff; --line:#dde3ec;
+  --ink:#0b1f3a; --mute:#5b6b82; --faint:#94a3b8;
+  --acc:#2bd67b; --acc-ink:#0b1f3a; --link:#ff6a00;
+  --exact:#2bd67b; --close:#ffd23f; --miss:#e3e8ef;
+  --bad:#ff6a00; --r:14px;
+  --grad:linear-gradient(90deg,#ff6a00 0%,#ffb703 100%);
+  --surface:#fff; --tile-ink:#0b1f3a; --hd:#0b1f3a; --okbg:#eafff4; --hover:#eef2f8; --body:#2d3b52;
+  --banner-bg:#fff4e6; --banner-bd:#ffd2a8; --banner-ink:#0b1f3a; --sh:rgba(11,31,58,.07); --seg-on:#0b1f3a; --seg-on-ink:#fff;
+}
+[data-theme=dark]{
+  --bg:#06101f; --bg2:#0b1a30; --card:#0f2140; --card2:#0f2140; --line:#1f3a63;
+  --ink:#eef2f8; --mute:#a9b6c9; --faint:#6c7d96; --link:#ffb703;
+  --miss:#1c3358; --close:#ffd23f; --link:#ffb703;
+  --surface:#0f2140; --tile-ink:#eef2f8; --hd:#2bd67b; --okbg:#003a2a; --hover:#16305a; --body:#d3dbe7;
+  --banner-bg:#3a1f00; --banner-bd:#8a4500; --banner-ink:#ffd9b0; --sh:rgba(0,0,0,.35); --seg-on:#2bd67b; --seg-on-ink:#0b1f3a;
+}
+html{transition:background .3s}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{min-height:100vh}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+
+/* top band */
+.top{position:relative;overflow:hidden;background:
+  radial-gradient(420px 220px at 105% -10%, rgba(255,183,3,.55), transparent 60%),
+  radial-gradient(380px 240px at -15% 120%, rgba(255,106,0,.55), transparent 60%),
+  linear-gradient(135deg,#0b1f3a 0%,#1a3a6b 55%,#0e1f3d 100%);
+  color:#fff;padding:18px 0 16px;border-radius:0 0 26px 26px;box-shadow:0 10px 30px rgba(11,31,58,.25)}
+[data-theme=dark] .top{background:radial-gradient(420px 220px at 105% -10%, rgba(43,214,123,.22), transparent 60%),radial-gradient(380px 240px at -15% 120%, rgba(255,106,0,.4), transparent 60%),linear-gradient(135deg,#06101f 0%,#0b1f3a 60%,#050c18 100%)}
+.top::after{content:"";position:absolute;right:-60px;top:-40px;width:220px;height:220px;border-radius:50%;border:28px solid rgba(255,255,255,.06)}
+.wrap{max-width:540px;margin:0 auto;padding:16px 14px 80px}
+.top .inner{max-width:540px;margin:0 auto;padding:0 14px;position:relative;z-index:1}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+.brand .t1{font-weight:800;font-size:25px;letter-spacing:-.02em}
+.brand .t1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .t2{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:4px;font-weight:500}
+.helpbtn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-weight:800;flex:none}
+.helpbtn:hover{background:rgba(255,255,255,.24)}
+.hright{display:flex;align-items:center;gap:6px;flex:none}
+.mascot{width:112px;height:112px;margin:-22px -12px -22px -4px;position:relative;flex:none;border-radius:50%;transition:transform .25s}
+.mascot:hover{transform:scale(1.05) rotate(-3deg)}
+.mascot:active{transform:scale(.94)}
+.mascot svg{position:absolute;inset:0;width:100%;height:100%;transition:opacity .35s, transform .45s}
+.mascot .night{opacity:0;transform:scale(.6) rotate(20deg)}
+[data-theme=dark] .mascot .day{opacity:0;transform:scale(.6) rotate(-20deg)}
+[data-theme=dark] .mascot .night{opacity:1;transform:none}
+.mascot .lbl{position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:rgba(0,0,0,.35);color:#fff;padding:2px 7px;border-radius:999px;white-space:nowrap}
+
+nav{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.12);border-radius:999px;padding:4px}
+nav button{padding:10px 0;border-radius:999px;font-weight:700;font-size:14px;color:rgba(255,255,255,.8)}
+nav button.on{background:#fff;color:var(--purple)}
+
+.banner{background:var(--banner-bg);border:1px solid var(--banner-bd);color:var(--banner-ink);border-radius:var(--r);padding:10px 12px;font-size:13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.banner button{font-weight:800;text-decoration:underline;color:inherit}
+.note{color:var(--mute);font-size:13px;line-height:1.45}
+
+/* search */
+.searchbox{position:relative;margin-bottom:14px}
+.searchbox input{width:100%;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:14px 16px 14px 46px;font-size:16px;font-weight:600;outline:none;box-shadow:0 4px 14px rgba(11,31,58,.06)}
+.searchbox input::placeholder{color:var(--faint);font-weight:500}
+.searchbox input:focus{border-color:var(--hd)}
+.searchbox svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:var(--hd)}
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 8px);background:var(--surface);border-radius:var(--r);overflow:hidden;z-index:20;box-shadow:0 18px 40px rgba(11,31,58,.22)}
+.sugg button{display:flex;width:100%;text-align:left;padding:11px 14px;gap:10px;align-items:center;border-bottom:1px solid var(--line)}
+.sugg button:last-child{border-bottom:0}
+.sugg button:hover,.sugg button.hi{background:var(--hover)}
+.sugg .nm{font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sugg .nm small{display:block;font-weight:500;color:var(--mute);font-size:12px}
+.sugg .meta{font-size:12px;color:var(--mute);text-align:right;white-space:nowrap;font-weight:600}
+
+.meter{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mute);margin:4px 2px 12px;font-weight:600}
+.pips{display:flex;gap:5px}
+.pips i{width:18px;height:6px;border-radius:3px;background:var(--line)}
+.pips i.used{background:var(--hd)}
+.pips i.win{background:var(--green)}
+
+/* grid */
+.board{background:var(--surface);border-radius:18px;padding:14px 12px 6px;box-shadow:0 6px 20px var(--sh);margin-bottom:12px}
+.colhead,.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.colhead{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:8px}
+.guess{margin-bottom:12px}
+.guess .gname{font-weight:800;font-size:14px;margin:0 2px 6px;display:flex;justify-content:space-between}
+.guess .gname span{color:var(--hd);font-weight:800;font-size:12px}
+.tile{position:relative;height:54px;border-radius:10px;background:var(--miss);color:var(--tile-ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:15px;line-height:1.05;overflow:hidden}
+.tile{--final:var(--miss)} .tile.exact{--final:var(--exact)} .tile.close{--final:var(--close)}
+.tile.anim{animation:wflip .55s ease-in-out both;animation-delay:calc(var(--i,0) * .32s)}
+.tile.anim > *{animation:wshow .55s step-end both;animation-delay:calc(var(--i,0) * .32s)}
+@keyframes wflip{0%{transform:rotateX(0);background:transparent;box-shadow:inset 0 0 0 2px var(--line)}
+  50%{transform:rotateX(90deg);background:transparent;box-shadow:inset 0 0 0 2px var(--line)}
+  50.01%{transform:rotateX(90deg);background:var(--final);box-shadow:none}
+  100%{transform:rotateX(0);background:var(--final);box-shadow:none}}
+@keyframes wshow{0%{opacity:0}50%{opacity:1}}
+.tile.exact{background:var(--exact);color:#0b1f3a}
+.tile.close{background:var(--close);color:#0b1f3a}
+.tile .ar{font-size:11px;font-weight:900;margin-top:3px;opacity:.8}
+.tile .club{font-size:14px;letter-spacing:.02em}
+.tile .stripe{position:absolute;left:0;right:0;bottom:0;height:5px}
+@keyframes flip{from{transform:rotateX(90deg);opacity:0}to{transform:none;opacity:1}}
+.empty .tile{animation:none;background:transparent;border:2px dashed var(--line)}
+
+.legend{display:flex;gap:12px;justify-content:center;font-size:11.5px;color:var(--mute);margin:10px 0 16px;flex-wrap:wrap;font-weight:600}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+/* panels */
+.panel{background:var(--card);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 6px 20px var(--sh)}
+.panel h3{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--hd);margin-bottom:10px;font-weight:800}
+.know{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:14px}
+.know dt{color:var(--mute);font-weight:500}
+.know dd{font-weight:800}
+.hints{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hint{border:2px solid var(--line);border-radius:12px;padding:12px;font-size:13.5px;text-align:left;min-height:62px;background:var(--surface);font-weight:500}
+.hint b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:4px;font-weight:800}
+.hint:not(:disabled):not(.open){border-color:var(--hd)}
+.hint:disabled{opacity:.6;cursor:default}
+.hint.wide{grid-column:span 2}
+.hint.open{border-color:var(--green);background:var(--okbg)}
+.hint.open b{color:var(--hd)}
+
+/* result */
+.result{text-align:center;padding:22px 16px;color:#fff;background:
+  radial-gradient(300px 160px at 100% 0%, rgba(255,183,3,.45), transparent 60%),
+  radial-gradient(300px 180px at 0% 100%, rgba(255,106,0,.45), transparent 60%),
+  linear-gradient(135deg,#0b1f3a,#1d3d70)}
+.result .big{font-size:48px;font-weight:800;letter-spacing:-.03em;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.result .big small{font-size:16px;font-weight:700;letter-spacing:0;-webkit-text-fill-color:rgba(255,255,255,.7)}
+.result .ans{font-size:21px;font-weight:800;margin:10px 0 2px}
+.result .sub{color:rgba(255,255,255,.75);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:16px 0}
+.stats div{background:var(--bg);border-radius:12px;padding:10px 4px}
+.result .stats div{background:rgba(255,255,255,.1)}
+.todayline{font-size:14px;font-weight:700;margin:-4px 0 12px;opacity:.95}
+.dist{display:grid;gap:4px;margin:0 0 16px;text-align:left}
+.drow{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.drow .dl{width:18px;text-align:center;flex:none}
+.dbar{display:flex;justify-content:flex-end;align-items:center;min-width:26px;height:22px;border-radius:6px;padding:0 7px;background:#6b5b80;color:#fff;box-sizing:border-box}
+.dbar.now{background:var(--exact);color:#0b1f3a}
+.dbar b{font-size:12px}
+.stats b{display:block;font-size:20px;font-weight:800}
+.stats span{font-size:11px;color:var(--mute);font-weight:600}
+.result .stats span{color:rgba(255,255,255,.7)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:12px 18px;font-weight:800;font-size:14px;background:var(--grad);color:var(--purple)}
+.btn.ghost{background:transparent;border:2px solid var(--hd);color:var(--hd)}
+.result .btn.ghost{border-color:rgba(255,255,255,.6);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.count{margin-top:14px;font-size:12px;color:rgba(255,255,255,.7);font-weight:600}
+
+/* board */
+.seg{display:inline-flex;background:var(--surface);border-radius:999px;padding:4px;margin-bottom:12px;box-shadow:0 4px 14px var(--sh)}
+.seg button{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:700;color:var(--mute)}
+.seg button.on{background:var(--seg-on);color:var(--seg-on-ink)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);text-align:left;padding:8px 8px;font-weight:800}
+td{padding:12px 8px;border-top:1px solid var(--line);font-weight:600}
+td.r,th.r{text-align:right}
+td.pos{width:36px;color:var(--hd);font-weight:800}
+tr.me td{background:var(--okbg)}
+tr.me td:first-child{box-shadow:inset 4px 0 0 var(--green)}
+.tag{color:var(--faint);font-weight:500;font-size:12px;margin-left:3px}
+.fire{font-size:12px;color:var(--pink);margin-left:6px;font-weight:800}
+.pts{font-weight:800;color:var(--hd)}
+.ptitle{font-size:18px!important;letter-spacing:-.01em!important;text-transform:none!important;margin-bottom:10px}
+.notice{border:1.5px dashed var(--green);border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:10px}
+.pool-sub{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);text-align:center;margin:-4px 0 8px}
+table.board th{padding:6px 5px}
+table.board td{padding:10px 5px;vertical-align:middle}
+table.board td.pos{width:28px}
+table.board td.pos.medal{font-size:19px;text-align:center}
+table.board td.nm{font-weight:800;overflow-wrap:anywhere}
+table.board td.nm small{font-weight:600;color:var(--mute)}
+table.board .td{white-space:nowrap;font-size:13.5px}
+table.board .td.wait{color:var(--mute)}
+table.board td.pts{font-size:17px}
+.mini{font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--mute)}
+.mini.confirm{color:var(--pink);border-color:var(--pink)}
+.pool-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chips button.add{border-style:dashed}
+
+.devwarn{display:block;background:#fff3ea;border:2px solid var(--pink);border-radius:14px;padding:12px 14px;margin-bottom:14px;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.devwarn b{display:block;font-size:15px;color:var(--pink)}
+[data-theme=dark] .devwarn{background:#3a0020}
+[data-theme=dark] .devwarn b{color:#ff5c93}
+
+.giveup{font-size:13px;font-weight:700;color:var(--mute);border:2px solid var(--line);border-radius:999px;padding:8px 16px;background:transparent}
+.giveup.confirm{color:#fff;background:var(--pink);border-color:var(--pink)}
+.giveup:disabled{opacity:.5}
+.proud{text-align:center}
+.proud .shirt{width:150px;height:150px;margin:4px auto 10px;display:block;filter:drop-shadow(0 10px 18px rgba(11,31,58,.35))}
+.proud .eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+.proud h2{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:4px 0 6px;color:var(--hd)}
+.proud p{font-size:16px;margin:0 0 4px}
+.proud .managore{font-size:15px;font-weight:800;font-style:italic;color:var(--pink);margin:6px 0 2px}
+.proud.yday h2{font-size:26px}
+.proud.yday .row{margin-top:14px}
+.proud .pts{font-size:42px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;margin:6px 0 10px}
+.ballrain{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.ballrain span{position:absolute;top:-60px;animation:ballfall linear forwards}
+@keyframes ballfall{to{transform:translate(var(--drift),110vh) rotate(var(--spin))}}
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:71}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.modal .box.pop{animation:pop .35s cubic-bezier(.2,1.4,.4,1) both}
+/* telefoon */
+html{-webkit-text-size-adjust:100%}
+*{-webkit-tap-highlight-color:transparent}
+button,input,a,.tile{touch-action:manipulation}
+.top{padding-top:calc(18px + env(safe-area-inset-top))}
+.top .inner{padding-left:max(14px, env(safe-area-inset-left));padding-right:max(14px, env(safe-area-inset-right))}
+.wrap{padding-bottom:calc(80px + env(safe-area-inset-bottom));padding-left:max(14px, env(safe-area-inset-left));padding-right:max(14px, env(safe-area-inset-right))}
+.toast{bottom:calc(24px + env(safe-area-inset-bottom));max-width:calc(100vw - 32px);text-align:center}
+.modal{padding:max(14px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom))}
+.modal .box{max-height:90vh;max-height:90dvh;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.sugg button{min-height:52px}
+.btn{min-height:44px}
+.row .btn{flex:1 1 auto}
+.copyarea{font-size:16px}
+@media (max-width:360px){
+  .wrap{padding-left:10px;padding-right:10px}
+  .colhead,.tiles{gap:4px}
+  .tile{height:46px;font-size:12.5px;border-radius:8px}
+  .tile .club{font-size:12px}
+  .tile .ar{font-size:10px}
+  .brand .t1{font-size:21px}
+  .brand .t2{font-size:11.5px}
+  .mascot{width:92px;height:92px;margin:-16px -10px -16px -4px}
+  .helpbtn{width:32px;height:32px}
+  nav button{font-size:13px}
+  .seg button{padding:7px 10px;font-size:12px}
+  .stats b{font-size:17px}
+  .result .big{font-size:38px}
+  .proud h2{font-size:25px}
+  .bigcode{font-size:26px;letter-spacing:.12em}
+  .colhead{font-size:9.5px}
+}
+.linkbtn{text-decoration:underline;color:var(--link);font-weight:700}
+.winner{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(255,183,3,.18),rgba(43,214,123,.18));border:2px solid var(--green);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.winner .cup{font-size:30px;line-height:1}
+.winner b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--hd)}
+.winner span{font-weight:800;font-size:15px}
+.cups{font-size:12px;font-weight:800;margin-left:6px;white-space:nowrap}
+td.pos.medal{font-size:18px}
+
+/* poules */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{white-space:nowrap;padding:8px 14px;border-radius:999px;background:var(--surface);border:2px solid var(--line);font-weight:700;font-size:13px;color:var(--mute);flex:none}
+.chips button.on{border-color:var(--hd);color:var(--hd)}
+.leaguebar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.leaguebar .btn{padding:10px 14px}
+.lbl2{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.code{font-size:22px;font-weight:800;letter-spacing:.12em;color:var(--hd)}
+.bigcode{font-size:34px;font-weight:800;letter-spacing:.18em;text-align:center;padding:14px;border-radius:14px;background:var(--bg);color:var(--hd)}
+
+/* profile */
+.field{display:flex;gap:8px}
+.field input{flex:1;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:11px 16px;font-size:16px;font-weight:600;outline:none;min-width:0}
+.field input:focus{border-color:var(--hd)}
+.howto p{font-size:14px;line-height:1.55;margin-bottom:8px;color:var(--body)}
+.howto ul{padding-left:18px;font-size:14px;line-height:1.65;color:var(--body)}
+.chip{padding:1px 7px;border-radius:5px;color:#0b1f3a}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(5,15,30,.6);display:flex;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal .box{background:var(--surface);border-radius:20px;padding:22px;max-width:420px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 30px 60px rgba(5,15,30,.4)}
+.modal h2{font-size:21px;font-weight:800;margin-bottom:8px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--purple);color:#fff;padding:11px 18px;border-radius:999px;font-weight:700;font-size:14px;z-index:60;box-shadow:0 10px 24px rgba(11,31,58,.35)}
+.hide{display:none!important}
+.adslot{margin:18px auto 0;max-width:728px;min-height:100px;text-align:center}
+.adslot.placeholder{display:flex;align-items:center;justify-content:center;border:2px dashed var(--line);border-radius:12px;color:var(--faint);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.foot{margin:22px 0 28px;text-align:center;font-size:12px;color:var(--faint);line-height:1.7}
+.foot a{color:var(--mute);font-weight:700}
+.copyarea{width:100%;margin-top:10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;font:13px/1.4 ui-monospace,monospace;height:110px}
+@media (max-width:380px){.tile{height:50px;font-size:13.5px}.brand .t1{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="inner">
+  <header>
+    <div class="brand">
+      <div class="t1">Differentia<span>le</span></div>
+      <div class="t2" id="sub">&nbsp;</div>
+    </div>
+    <div class="hright">
+      <button class="helpbtn" id="helpBtn" aria-label="Uitleg">?</button>
+      <button class="mascot" id="themeBtn" aria-label="Wissel dag- en nachtmodus"><svg class="day" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="mn" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#ffcf4a"/><stop offset=".7" stop-color="#f59e0b"/><stop offset="1" stop-color="#c2410c"/></radialGradient><linearGradient id="fc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3a3"/><stop offset="1" stop-color="#fbc56b"/></linearGradient></defs><polygon points="100.0,7.9 112.8,30.6 132.8,13.6 137.0,39.2 161.7,29.9 156.7,55.4 183.1,55.0 169.5,77.2 194.5,85.7 174.0,102.0 194.5,118.3 169.5,126.8 183.1,149.0 156.7,148.6 161.7,174.1 137.0,164.8 132.8,190.4 112.8,173.4 100.0,196.1 87.2,173.4 67.2,190.4 63.0,164.8 38.3,174.1 43.3,148.6 16.9,149.0 30.5,126.8 5.5,118.3 26.0,102.0 5.5,85.7 30.5,77.2 16.9,55.0 43.3,55.4 38.3,29.9 63.0,39.2 67.2,13.6 87.2,30.6" fill="url(#mn)"/><circle cx="58" cy="60" r="17" fill="#e8892a"/><circle cx="142" cy="60" r="17" fill="#e8892a"/><circle cx="58" cy="60" r="8" fill="#ffd38a"/><circle cx="142" cy="60" r="8" fill="#ffd38a"/><path d="M48 104 C48 62 152 62 152 104 C152 142 128 166 100 166 C72 166 48 142 48 104Z" fill="url(#fc)"/><path d="M70 86 q10 -7 20 0 M110 86 q10 -7 20 0" stroke="#b45309" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="80" cy="102" rx="7" ry="9" fill="#0b1f3a"/><ellipse cx="120" cy="102" rx="7" ry="9" fill="#0b1f3a"/><circle cx="82.5" cy="98.5" r="2.4" fill="#fff"/><circle cx="122.5" cy="98.5" r="2.4" fill="#fff"/><ellipse cx="100" cy="138" rx="27" ry="19" fill="#fff4dc"/><path d="M87 122 Q100 115 113 122 Q107 134 100 136 Q93 134 87 122Z" fill="#5b1a1a"/><path d="M100 136 Q100 148 88 148 M100 136 Q100 148 112 148" stroke="#5b1a1a" stroke-width="3.2" fill="none" stroke-linecap="round"/><circle cx="84" cy="136" r="1.6" fill="#b45309"/><circle cx="78" cy="141" r="1.6" fill="#b45309"/><circle cx="116" cy="136" r="1.6" fill="#b45309"/><circle cx="122" cy="141" r="1.6" fill="#b45309"/></svg><svg class="night" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="gl" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2bd67b" stop-opacity=".35"/><stop offset="1" stop-color="#2bd67b" stop-opacity="0"/></radialGradient><linearGradient id="ph" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a0a55"/><stop offset="1" stop-color="#06101f"/></linearGradient></defs><circle cx="100" cy="104" r="96" fill="url(#gl)"/><circle cx="56" cy="58" r="22" fill="#0f2140"/><circle cx="144" cy="58" r="22" fill="#0f2140"/><circle cx="57" cy="60" r="11" fill="#ff6a00" opacity=".55"/><circle cx="143" cy="60" r="11" fill="#ff6a00" opacity=".55"/><path d="M38 100 C38 56 162 56 162 100 C162 146 132 172 100 172 C68 172 38 146 38 100Z" fill="url(#ph)"/><path d="M62 94 Q80 82 94 98 Q78 104 62 94Z" fill="#2bd67b"/><path d="M138 94 Q120 82 106 98 Q122 104 138 94Z" fill="#2bd67b"/><ellipse cx="80" cy="94" rx="2.6" ry="7" fill="#07000a"/><ellipse cx="120" cy="94" rx="2.6" ry="7" fill="#07000a"/><path d="M70 82 L90 88 M130 82 L110 88" stroke="#2a4a7a" stroke-width="3" stroke-linecap="round"/><ellipse cx="100" cy="140" rx="30" ry="21" fill="#0b1f3a"/><path d="M89 126 Q100 120 111 126 Q106 136 100 138 Q94 136 89 126Z" fill="#ff6a00"/><path d="M100 138 Q100 149 89 150 M100 138 Q100 149 111 150" stroke="#7b93b8" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M70 138 L36 132 M70 145 L38 150 M130 138 L164 132 M130 145 L162 150" stroke="#eef2f8" stroke-opacity=".45" stroke-width="1.6" stroke-linecap="round"/><path d="M93 151 L96 158 L99 151 M101 151 L104 158 L107 151" fill="#eef2f8" opacity=".85"/></svg><span class="lbl" id="themeLbl">nacht</span></button>
+    </div>
+  </header>
+  <nav>
+    <button data-tab="play" class="on">Spelen</button>
+    <button data-tab="board">Klassement</button>
+    <button data-tab="me">Profiel</button>
+  </nav>
+</div></div>
+<div class="wrap">
+  <main id="view"></main>
+  <!-- Advertentieplek: blijft staan tussen schermwissels (geen herladen van advertenties bij elke klik) -->
+  <aside id="ad-bottom" class="adslot hide" aria-label="Advertentie"></aside>
+  <footer class="foot">
+    <a href="privacy.html">Privacy &amp; cookies</a> · <a href="over.html">Over</a> · <a href="mailto:info@example.nl">Contact</a>
+    <div>Differentiale is een onafhankelijk fanspel en is niet gelieerd aan de Eredivisie, ESPN of de clubs.</div>
+  </footer>
+</div>
+<div id="modal"></div>
+<div id="toast" class="toast hide"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){ let t=null; try{ t=localStorage.getItem("dnl:theme"); }catch(e){} if(!t) t = (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; document.documentElement.dataset.theme=t; })();
+</script>
+<script>
+const DATA0 = {"gw":10,"next":{"gw":11,"deadline":"2026-10-31T15:25:00Z"},"updated":"2026-11-01T12:32","teams":[[1,"AJA","Ajax"],[2,"AZ","AZ"],[3,"GRO","FC Groningen"],[4,"TWE","FC Twente"],[5,"UTR","FC Utrecht"],[6,"FEY","Feyenoord"],[7,"FOR","Fortuna Sittard"],[8,"GAE","Go Ahead Eagles"],[9,"NEC","N.E.C."],[10,"PEC","PEC Zwolle"],[11,"PSV","PSV"],[12,"HEE","sc Heerenveen"],[13,"SPA","Sparta Rotterdam"],[14,"TEL","Telstar"],[15,"EXC","Excelsior"],[16,"ADO","ADO Den Haag"],[17,"CAM","SC Cambuur"],[18,"WIL","Willem II"]],"players":[[229595,"Paes","Maarten Paes",1,1,48,0.8,3,0,0,0,0,90,null],[596599,"Heerkens","Joeri Heerkens",1,1,44,0.0,0,0,0,0,0,0,null],[593028,"Reverson","Paul Reverson",1,1,40,0.1,0,0,0,0,0,0,null],[615379,"Janse","Dies Janse",1,2,54,0.7,10,3,0,0,1,283,null],[498040,"Baas","Youri Baas",1,2,64,11.0,26,4,1,0,1,732,null],[565013,"Gaaei","Anton Gaaei",1,2,53,3.4,9,0,0,0,1,360,null],[477625,"Rosa","Lucas Rosa",1,2,55,3.2,17,1,0,1,1,522,null],[650530,"Mokio","Jorthy Mokio",1,3,60,1.9,39,2,3,2,1,670,null],[222702,"Wijndal","Owen Wijndal",1,2,47,1.4,14,1,0,1,1,313,null],[210906,"Itakura","Ko Itakura",1,2,60,0.6,0,0,0,0,0,0,null],[240992,"Sutalo","Josip Sutalo",1,2,60,0.4,0,0,0,0,0,0,null],[624879,"Bouwman","Aaron Bouwman",1,2,55,3.4,21,0,1,0,2,461,null],[58877,"Blind","Daley Blind",1,2,53,4.5,1,1,0,0,0,2,null],[648146,"Johnson","Jinairo Johnson",1,2,39,0.1,0,0,0,0,0,0,null],[550224,"Gooijer","Tristan Gooijer",1,2,39,0.5,0,0,0,0,0,0,null],[230971,"C. Henrique","Caio Henrique Oliveira Silva",1,2,63,3.3,20,0,0,1,2,486,null],[549458,"Gloukh","Oscar Gloukh",1,3,91,4.0,39,1,1,4,2,614,null],[109065,"Klaassen","Davy Klaassen",1,3,84,3.0,31,1,3,1,2,579,null],[568465,"Godts","Mika Godts",1,3,124,4.1,4,0,0,1,0,29,null],[492629,"Regeer","Youri Regeer",1,3,65,0.1,4,0,0,0,1,150,null],[88935,"Berghuis","Steven Berghuis",1,3,77,1.3,25,0,1,2,2,400,null],[560116,"Bounida","Rayane Bounida",1,3,69,0.1,1,0,0,0,0,8,null],[492771,"Fitz-Jim","Kian Fitz-Jim",1,3,60,0.0,0,0,0,0,0,0,null],[493014,"Edvardsen","Oliver Edvardsen",1,3,69,0.2,4,0,0,0,0,106,null],[641213,"Carrizo","Maher Carrizo",1,3,79,0.2,0,0,0,0,0,0,null],[650561,"Nash","Pharell Nash",1,3,43,0.0,0,0,0,0,0,0,null],[650628,"Ouazane","Abdellah Ouazane",1,3,45,10.0,24,8,2,0,1,375,null],[505199,"Van Axel Dongen","Amourricho van Axel Dongen",1,3,49,0.0,0,0,0,0,0,0,null],[567732,"Faberski","Jan Faberski",1,3,48,0.0,0,0,0,0,0,0,null],[209914,"Dolberg","Kasper Dolberg",1,4,84,1.9,30,0,2,3,1,326,null],[593012,"Konadu","Don-Angelo Konadu",1,4,49,0.2,0,0,0,0,0,0,null],[478011,"M. Leonardo","Marcos Leonardo Santos Almeida",1,4,112,2.3,14,0,1,1,0,191,null],[650643,"Abdalla","Mohamed Abdalla",1,3,43,0.1,0,0,0,0,0,0,null],[488213,"Tolu","Tolu Arokodare",1,4,88,29.0,44,6,5,2,1,449,null],[177591,"Brandt","Julian Brandt",1,3,99,32.6,66,10,6,2,2,688,null],[77318,"Ter Stegen","Marc ter Stegen",1,1,56,24.3,38,3,0,0,2,810,null],[669937,"Torrents","Jofre Torrents",1,2,47,0.0,1,0,0,0,0,8,null],[194282,"Tsygankov","Viktor Tsygankov",1,3,87,0.0,15,1,1,1,0,248,null],[172912,"S. Amrabat","Sofyan Amrabat",1,3,64,0.1,11,2,0,0,0,443,null],[535818,"Adingra","Simon Adingra",1,3,85,0.0,1,0,0,0,0,30,null],[201057,"Kehrer","Thilo Kehrer",1,2,59,1.5,22,2,1,1,0,442,null],[227127,"Bissouma","Yves Bissouma",1,3,65,0.0,2,1,0,0,0,37,null],[563876,"Owusu-Oduro","Rome-Jayden Owusu-Oduro",2,1,47,1.5,0,0,0,0,0,0,null],[86912,"Verhulst","Hobie Verhulst",2,1,43,0.1,0,0,0,0,0,0,null],[59108,"Zoet","Jeroen Zoet",2,1,43,0.2,0,0,0,0,0,0,null],[420687,"De Busser","Jari De Busser",2,1,50,28.0,30,2,0,0,3,900,null],[550226,"Goes","Wouter Goes",2,2,55,21.8,32,0,0,1,3,783,null],[465987,"Penetra","Alexandre Penetra",2,2,55,0.7,0,0,0,0,0,0,null],[565905,"Maikuma","Seiya Maikuma",2,2,54,0.7,5,0,0,0,0,45,null],[498481,"Kasius","Denso Kasius",2,2,59,0.4,1,0,0,0,0,37,null],[431637,"M. De Wit","Mees de Wit",2,2,52,5.1,7,0,0,1,0,96,null],[576739,"Dijkstra","Elijah Dijkstra",2,2,51,26.6,37,5,0,0,4,817,null],[646065,"Chávez","Mateo Chávez",2,2,56,32.8,48,2,1,3,3,797,null],[622188,"Ichihara","Rion Ichihara",2,2,43,0.0,1,0,0,0,0,10,null],[219262,"Koopmeiners","Peer Koopmeiners",2,3,65,5.3,35,2,1,1,3,894,null],[85654,"Clasie","Jordy Clasie",2,3,60,0.3,19,1,1,0,1,342,null],[568188,"Smit","Kees Smit",2,3,73,8.0,17,0,0,2,2,339,null],[438251,"Sadiq","Ibrahim Sadiq",2,3,69,0.3,0,0,0,0,0,0,null],[509478,"Lahdo","Mayckel Lahdo",2,3,49,0.1,0,0,0,0,0,0,null],[550228,"Daal","Ro-Zangelo Daal",2,3,74,21.7,58,2,5,0,4,796,null],[637895,"Oufkir","Ayoub Oufkir",2,3,65,0.2,18,0,2,0,0,244,null],[513456,"Jensen","Isak Jensen",2,3,69,0.3,0,0,0,0,0,0,null],[560551,"Patati","Weslley Pinto Batista",2,3,66,1.4,16,2,1,0,0,431,null],[647853,"Bouziane","Wassim Bouziane",2,3,47,0.0,0,0,0,0,0,0,null],[647873,"Robbemond","Rio Robbemond",2,3,42,0.1,0,0,0,0,0,0,null],[550227,"Kwakman","Dave Kwakman",2,3,55,1.4,27,2,1,1,2,670,null],[560374,"Schouten","Lewis Schouten",2,3,50,1.2,29,2,1,0,3,900,null],[672422,"Kovács","Bendegúz Kovács",2,4,48,0.4,4,1,0,0,0,43,null],[447235,"Parrott","Troy Parrott",2,4,99,2.3,4,0,0,1,0,33,null],[563877,"Meerdink","Mexx Meerdink",2,4,90,38.7,47,2,4,2,3,828,null],[441441,"Hornkamp","Jizz Hornkamp",2,4,69,0.6,14,0,2,0,0,76,null],[520262,"Resink","Stije Resink",2,3,69,0.1,0,0,0,0,0,0,null],[235628,"Stengs","Calvin Stengs",2,3,60,3.1,32,1,1,3,2,499,null],[568471,"De Grand","Sam de Grand",2,2,54,0.5,0,0,0,0,0,0,null],[631118,"Natali","Andrea Natali",2,2,44,0.0,0,0,0,0,0,0,null],[682039,"H. De Wit","Hessel de Wit",2,3,44,0.0,1,0,0,0,0,18,null],[568423,"Byskov","Valdemar Byskov",2,3,64,0.0,13,3,0,2,1,197,null],[167075,"Hoedt","Wesley Hoedt",2,2,46,0.0,6,6,0,0,1,62,null],[634626,"Ka","Ismail Ka",2,1,40,0.0,0,0,0,0,0,0,null],[216139,"Vaessen","Etienne Vaessen",3,1,51,14.6,36,3,0,1,1,900,null],[581593,"Stubljar","Lovro Stubljar",3,1,43,0.0,0,0,0,0,0,0,null],[497264,"Janse","Rijk Janse",3,1,39,0.4,0,0,0,0,0,0,null],[633744,"Prins","Wouter Prins",3,2,50,0.4,18,1,0,0,2,503,null],[538777,"Blokzijl","Thijmen Blokzijl",3,2,54,14.7,18,1,0,1,1,900,null],[428920,"Rente","Marco Rente",3,2,53,6.4,30,4,2,1,1,384,null],[646652,"Bouland","Sven Bouland",3,2,40,0.1,0,0,0,0,0,0,null],[639577,"Mercera","Tyrique Mercera",3,2,49,0.1,1,0,0,0,0,19,null],[649808,"Van der Laan","Elvis van der Laan",3,2,40,0.7,5,0,0,0,0,171,null],[601181,"Schreuders","Jorg Schreuders",3,3,59,1.2,39,2,1,4,1,855,null],[538778,"De Jonge","Tika de Jonge",3,3,58,0.3,27,2,0,2,1,864,null],[659908,"Van der Werff","David van der Werff",3,3,60,2.4,40,1,2,3,2,806,null],[490132,"Emeran","Noam Emeran",3,3,44,0.1,0,0,0,0,0,0,null],[703860,"Hoekstra","Mark Hoekstra",3,3,43,0.2,0,0,0,0,0,0,null],[592436,"Hernes","Travis Hernes",3,3,48,0.1,5,1,0,0,0,49,null],[703855,"Dillema","Jismerai Dillema",3,3,43,0.1,0,0,0,0,0,0,null],[727095,"Metu","Ryan Metu",3,3,43,0.1,3,0,0,0,0,21,null],[576754,"Land","Tygo Land",3,3,54,3.3,29,1,2,1,0,570,null],[209604,"Clement","Pelle Clement",3,3,59,0.3,27,2,0,2,2,845,null],[597363,"Van Bergen","Thom van Bergen",3,4,81,38.5,62,5,6,3,1,894,null],[434030,"Willumsson","Brynjólfur Willumsson",3,4,68,16.2,61,12,8,0,2,746,null],[192382,"Zawada","Oskar Zawada",3,4,58,0.2,7,0,0,1,0,73,null],[644574,"Eggens","Nils Eggens",3,4,44,0.6,11,1,1,0,0,66,null],[658130,"Brandis","Nikolas Brandis",3,2,48,0.0,3,0,0,0,0,46,null],[616925,"Jeng","Malcolm Jeng",3,2,43,0.0,0,0,0,0,0,0,null],[673549,"Nordin","Alvin Nordin",3,3,49,0.0,2,0,0,0,0,13,null],[506214,"Ondrejka","Jacob Ondrejka",3,3,63,0.0,11,0,0,0,1,304,null],[485123,"Csinger","Márk Csinger",3,2,50,0.0,11,1,0,0,1,552,null],[232566,"Boevink","Pelle Boevink",3,1,40,0.0,0,0,0,0,0,0,null],[742190,"Hall","Jahelille Hall",3,3,45,0.0,0,0,0,0,0,0,null],[742188,"Mosselaar","Jesper Mosselaar",3,2,40,0.0,1,0,0,0,0,1,null],[170135,"Hateboer","Hans Hateboer",3,2,50,0.2,3,0,0,0,0,275,null],[84164,"Unnerstall","Lars Unnerstall",4,1,49,5.1,20,0,0,0,2,540,null],[436493,"El Maach","Issam El Maach",4,1,40,0.1,0,0,0,0,0,0,null],[668057,"Gerritsen","Yannick Gerritsen",4,1,40,0.1,0,0,0,0,0,0,null],[38989,"Pasveer","Remko Pasveer",4,1,44,0.4,0,0,0,0,0,0,null],[576740,"Mesbahi","Juliën Mesbahi",4,2,40,0.1,0,0,0,0,0,0,null],[463005,"Van Rooij","Bart van Rooij",4,2,65,27.6,39,6,0,1,4,854,null],[521064,"Bruns","Max Bruns",4,2,45,0.8,19,0,0,1,2,455,null],[521880,"Lemkin","Stav Lemkin",4,2,48,0.2,0,0,0,0,0,0,null],[499139,"Peixoto","Guilherme Peixoto",4,2,44,0.0,2,0,0,0,0,26,null],[109236,"Pröpper","Robin Pröpper",4,2,52,7.1,41,5,2,0,2,783,null],[636868,"Nijstad","Ruud Nijstad",4,2,55,10.5,33,6,1,0,3,810,null],[721209,"Titulaer","Bjorn Titulaer",4,2,39,0.1,0,0,0,0,0,0,null],[588756,"Adelgaard","Aske Adelgaard",4,2,54,3.3,32,7,0,1,3,578,null],[616386,"Kurowski","Krzysztof Kurowski",4,2,43,0.1,4,0,0,1,0,13,null],[584447,"Ørjasæter","Sondre Ørjasæter",4,3,68,9.9,38,10,2,2,3,663,null],[550822,"Weidmann","Daouda Weidmann",4,3,53,9.7,51,0,3,3,3,710,null],[102228,"Pjaca","Marko Pjaca",4,3,63,0.5,25,1,2,0,1,453,null],[450043,"Kjølø","Mathias Kjølø",4,3,49,0.1,1,0,0,0,0,22,null],[223345,"Booth","Taylor Booth",4,3,55,0.1,0,0,0,0,0,0,null],[511786,"Hlynsson","Kristian Hlynsson",4,3,73,3.6,5,0,0,0,0,130,null],[178974,"Verschueren","Arno Verschueren",4,3,55,0.0,0,0,0,0,0,0,null],[613579,"Besselink","Gijs Besselink",4,3,43,0.1,0,0,0,0,0,0,null],[546604,"Taha","Younes Taha",4,3,69,2.8,37,6,2,3,3,637,null],[655383,"Groenewald","Nigel Groenewald",4,3,45,0.0,0,0,0,0,0,0,null],[462095,"Van den Belt","Thomas van den Belt",4,3,57,0.5,11,1,0,0,0,220,null],[511167,"D. Rots","Daan Rots",4,3,73,8.4,29,3,1,2,2,537,null],[581797,"Ltaief","Sayfallah Ltaief",4,3,50,0.0,0,0,0,0,0,0,null],[465996,"Ünüvar","Naci Ünüvar",4,3,53,0.3,0,0,0,0,0,0,null],[647148,"Vennegoor of Hesselink","Lucas Vennegoor of Hesselink",4,4,48,1.4,11,5,1,0,0,92,null],[120202,"Weghorst","Wout Weghorst",4,4,84,17.2,42,2,4,2,3,858,null],[488355,"Zerrouki","Ramiz Zerrouki",4,3,69,2.5,25,3,0,1,3,886,null],[194122,"Drommel","Joël Drommel",4,1,48,6.2,22,13,0,2,1,360,null],[633740,"Bawuah","Jordy Bawuah",4,3,43,0.1,2,1,0,0,0,15,null],[597008,"Thorvaldsen","Filip Thorvaldsen",4,3,63,0.0,6,0,0,0,0,176,null],[554192,"Rosiak","Michal Rosiak",4,2,43,0.0,1,1,0,0,0,17,null],[655369,"Meilink","Jip Meilink",4,2,40,0.0,0,0,0,0,0,0,null],[548721,"Van Duijn","Sem van Duijn",5,4,58,0.3,14,8,1,0,0,139,null],[166227,"Barkas","Vasilios Barkas",5,1,48,7.2,11,0,0,0,0,630,null],[530183,"Gadellaa","Kevin Gadellaa",5,1,40,0.2,0,0,0,0,0,0,null],[613318,"Eppink","Mees Eppink",5,1,40,0.1,0,0,0,0,0,0,null],[179515,"Horemans","Siebe Horemans",5,2,48,0.7,8,2,0,0,0,803,null],[226957,"Vesterlund","Niklas Vesterlund",5,2,50,0.8,20,6,0,2,1,713,null],[492979,"Didden","Matisse Didden",5,2,50,1.0,23,3,2,0,0,653,null],[451735,"Eerdhuijzen","Mike Eerdhuijzen",5,2,50,0.1,2,0,0,0,0,135,null],[610439,"Adiele","Emeka Adiele",5,2,45,0.0,0,0,0,0,0,0,null],[510660,"Offerhaus","Guus Offerhaus",5,2,47,1.0,0,0,0,0,0,273,null],[599622,"Ogidi Nwankwo","Neville Ogidi Nwankwo",5,2,43,0.5,1,0,0,0,0,171,null],[468746,"Paredes","Kevin Paredes",5,2,54,0.8,3,0,0,0,0,67,null],[593263,"Pohl","Ferdinand Pohl",5,2,42,0.1,1,0,0,0,0,122,null],[589007,"Schuldes","Jamie Schuldes",5,2,43,0.0,0,0,0,0,0,0,null],[425617,"Jensen","Victor Jensen",5,3,74,0.1,0,0,0,0,0,0,null],[461548,"Iqbal","Zidane Aamar Iqbal",5,3,49,0.2,2,0,0,0,0,57,null],[543668,"Engwanda","Alonzo Engwanda",5,3,53,0.2,0,0,0,0,0,0,null],[533719,"Blake","Adrian Blake",5,3,55,0.7,28,1,2,2,1,303,null],[511356,"Cathline","Yoann Cathline",5,3,69,1.7,35,2,2,2,0,633,null],[494932,"Rodríguez","Miguel Rodríguez",5,3,70,0.1,0,0,0,0,0,0,null],[204651,"D. De Wit","Dani de Wit",5,3,74,2.8,33,2,2,1,0,864,null],[464744,"Van den Berg","Davy van den Berg",5,3,55,0.2,25,4,0,4,0,469,null],[636869,"Van Ommeren","Jaygo van Ommeren",5,3,44,0.0,0,0,0,0,0,0,null],[550451,"Agougil","Oualid Agougil",5,3,44,0.0,10,1,0,1,0,229,null],[684169,"Menzo","Björn Menzo",5,3,44,0.0,0,0,0,0,0,0,null],[500032,"Alarcón","Ángel Alarcón",5,3,73,3.1,37,2,3,0,1,661,null],[627583,"Chigozie Owen","Emmanuel Chigozie Owen",5,3,48,0.0,1,0,0,0,0,6,null],[577636,"Jonathans","Miliano Jonathans",5,3,54,0.0,0,0,0,0,0,0,null],[593232,"Stepanov","Artem Stepanov",5,4,74,6.4,36,1,5,0,1,449,null],[472094,"Min","David Min",5,4,59,0.8,3,0,0,0,0,78,null],[432717,"Ohio","Noah Ohio",5,4,53,0.5,0,0,0,0,0,0,null],[167720,"Van Overeem","Joris van Overeem",5,3,62,2.1,8,1,0,0,0,428,null],[437726,"Zagré","Arthur Zagré",5,2,48,9.2,21,2,0,3,0,829,null],[625589,"Kloosterboer","Per Kloosterboer",5,2,43,0.1,1,0,0,0,0,74,null],[544947,"Broholm","Marius Broholm",5,3,70,0.0,4,0,0,0,0,183,null],[44604,"N. Amrabat","Nordin Amrabat",5,3,53,0.0,2,1,0,0,0,30,null],[429905,"Medić","Jakov Medic",5,2,43,0.0,3,0,0,0,0,51,null],[456307,"Panagiotou","Nikolas Panagiotou",5,2,50,0.0,7,2,0,0,0,540,null],[57133,"Padt","Sergio Padt",5,1,45,0.1,6,3,0,0,0,180,null],[585931,"Berger","Mannou Berger",6,1,39,0.3,0,0,0,0,0,0,null],[145175,"Wellenreuther","Timon Wellenreuther",6,1,55,0.1,0,0,0,0,0,0,null],[212583,"Bossin","Liam Bossin",6,1,39,0.1,0,0,0,0,0,0,null],[458185,"Watanabe","Tsuyoshi Watanabe",6,2,60,2.9,31,1,0,2,3,667,null],[465797,"J. Bos","Jordan Bos",6,2,63,0.2,0,0,0,0,0,0,null],[233821,"Ahmedhodzic","Anel Ahmedhodzic",6,2,54,0.9,0,0,0,0,0,0,null],[202911,"St. Juste","Jeremiah St. Juste",6,2,51,5.1,31,1,0,0,4,663,null],[202072,"Nieuwkoop","Bart Nieuwkoop",6,2,49,0.0,0,0,0,0,0,0,null],[547590,"Beelen","Thomas Beelen",6,2,54,0.1,0,0,0,0,0,0,null],[231652,"Smal","Gijs Smal",6,2,54,0.1,0,0,0,0,0,0,null],[573121,"Read","Givairo Read",6,2,70,29.7,59,2,0,7,4,837,null],[229707,"Lotomba","Jordan Lotomba",6,2,49,0.1,5,0,0,1,0,34,null],[208748,"Deijl","Mats Deijl",6,2,52,3.2,2,0,0,0,0,25,null],[441273,"Kasanwirjo","Neraysho Kasanwirjo",6,2,44,0.1,0,0,0,0,0,0,null],[465677,"Mármol","Mika Mármol",6,2,57,11.2,44,2,0,3,4,870,null],[455605,"Hwang","In-Beom Hwang",6,3,65,0.0,0,0,0,0,0,0,null],[243505,"Moder","Jakub Moder",6,3,69,0.1,1,1,0,0,0,1,null],[582587,"Kraaijeveld","Thijs Kraaijeveld",6,3,42,1.2,10,1,0,0,1,188,null],[482257,"Targhalline","Oussama Targhalline",6,3,63,0.5,19,2,0,1,3,548,null],[460855,"Steijn","Sem Steijn",6,3,101,0.6,21,0,2,1,0,188,null],[538779,"Valente","Luciano Valente",6,3,82,27.2,55,5,4,2,4,791,null],[218378,"Ivanusec","Luka Ivanusec",6,3,54,0.0,0,0,0,0,0,0,null],[581136,"Hadj Moussa","Anis Hadj Moussa",6,3,112,7.8,63,9,6,1,4,794,null],[556187,"Sauer","Leo Sauer",6,3,75,0.2,0,0,0,0,0,0,null],[648777,"Diarra","Gaoussou Diarra",6,3,54,0.3,26,0,2,1,2,408,null],[465634,"Borges","Gonçalo Borges",6,3,74,1.2,1,0,0,0,0,26,null],[633010,"Ouarghi","Ayoub Ouarghi",6,3,45,0.0,0,0,0,0,0,0,null],[648689,"Van den Elshout","Tobias van den Elshout",6,3,46,0.2,5,1,0,0,0,60,null],[650641,"Zinhagel","Jivayno Zinhagel",6,3,44,0.0,7,0,1,0,0,44,null],[689727,"Grootfaam","Ilai Grootfaam",6,3,43,0.1,0,0,0,0,0,0,null],[597036,"Zechiël","Gjivai Zechiël",6,3,88,56.2,69,2,5,4,4,851,null],[453106,"Vanhoutte","Charles Vanhoutte",6,3,64,0.3,26,1,0,1,4,707,null],[560653,"Carrillo","Stephano Carrillo",6,4,47,0.1,0,0,0,0,0,0,null],[451341,"Ueda","Ayase Ueda",6,4,120,5.0,25,0,3,1,2,305,null],[615392,"Van Persie","Shaqueel van Persie",6,4,57,9.5,6,0,0,0,0,99,null],[477682,"Tengstedt","Casper Tengstedt",6,4,74,0.2,0,0,0,0,0,0,null],[547218,"Ferri","Nacho Ferri",6,4,89,16.1,46,2,6,2,3,499,null],[513429,"Ernst","Tjark Ernst",6,1,54,3.4,38,4,0,0,4,900,null],[669858,"Wessels","Tijme Wessels",6,2,40,0.0,1,0,0,0,0,18,null],[484406,"López","Javi López",6,2,52,0.2,15,1,1,0,1,291,null],[241270,"Kastenmeier","Florian Kastenmeier",6,1,50,0.0,0,0,0,0,0,0,null],[200641,"Nelson","Reiss Nelson",6,3,73,0.0,1,0,0,0,0,12,null],[687190,"Schaken","Jerayno Schaken",6,3,44,0.1,6,0,1,0,0,31,null],[574369,"'t Zand","Shiloh 't Zand",7,3,45,0.8,24,2,1,1,2,684,null],[93687,"Branderhorst","Mattijs Branderhorst",7,1,50,3.1,38,6,0,0,2,900,null],[88276,"Koopmans","Luuk Koopmans",7,1,44,0.1,0,0,0,0,0,0,null],[656329,"Bayram","Ramazan Bayram",7,1,40,0.0,0,0,0,0,0,0,null],[504750,"Hubner","Justin Hubner",7,2,44,0.8,19,8,0,0,2,900,null],[441297,"Van Ottele","Syb van Ottele",7,2,45,0.3,19,7,0,0,1,543,null],[475560,"Dahlhaus","Jasper Dahlhaus",7,2,45,0.9,16,1,0,1,1,550,null],[52980,"Pinto","Ivo Pinto",7,2,45,1.3,23,6,0,1,2,848,null],[244287,"Márquez","Iván Márquez",7,2,43,0.1,1,1,0,0,0,4,null],[493349,"Michut","Édouard Michut",7,3,55,0.4,31,3,1,2,2,784,null],[109014,"Peterson","Kristoffer Peterson",7,3,58,0.1,6,3,0,0,1,132,null],[546518,"Brittijn","Philip Brittijn",7,3,60,0.3,34,3,2,0,2,879,null],[703215,"Gbemou","Moussa Gbemou",7,3,49,0.0,4,0,0,0,0,9,null],[441301,"Ihattaren","Mohamed Ihattaren",7,3,76,13.8,47,4,3,4,1,581,null],[476616,"Oukili","Yassin Oukili",7,3,55,0.1,7,0,0,0,0,228,null],[740019,"Buyukhan","Ganni Buyukhan",7,3,44,0.1,1,0,0,0,0,3,null],[571329,"Simons","Sven Simons",7,3,54,0.0,2,0,0,0,0,96,null],[640351,"Johnson","Owen Johnson",7,4,44,0.4,0,0,0,0,0,0,null],[537472,"Zeefuik","Lequincio Zeefuik",7,4,61,11.6,36,0,3,2,0,638,null],[713163,"Laoukili","Amin Laoukili",7,3,43,0.1,0,0,0,0,0,0,null],[554214,"Wylin","Siebe Wylin",7,2,45,0.0,6,0,0,0,0,224,null],[443609,"Romeny","Ole Romeny",7,4,64,1.7,11,1,1,0,0,356,null],[546734,"De Groot","Nick de Groot",7,2,44,0.1,13,6,0,0,1,206,null],[499036,"Descotte","Anthony Descotte",7,4,59,1.4,42,0,5,0,1,535,null],[620072,"Reitmaier","Kaylen Reitmaier",7,1,40,0.0,0,0,0,0,0,0,null],[434384,"Guth","Rodrigo Guth",7,2,50,0.3,31,15,1,1,2,635,null],[750137,"Stockbrink","David Stockbrink",7,3,45,0.0,0,0,0,0,0,0,null],[748279,"Van Burgsteden","Kevin van Burgsteden",7,2,40,0.0,1,0,0,0,0,1,null],[167432,"Sinkgraven","Daley Sinkgraven",7,2,40,0.2,3,1,0,0,0,45,null],[566401,"Verdoni","Nando Verdoni",8,1,39,0.2,0,0,0,0,0,0,null],[86822,"Marsman","Nick Marsman",8,1,44,0.3,0,0,0,0,0,0,null],[198242,"Haug","Kjetil Haug",8,1,45,3.4,18,1,0,0,0,900,null],[211559,"Nauber","Gerrit Nauber",8,2,49,0.0,0,0,0,0,0,0,null],[208365,"Kramer","Joris Kramer",8,2,54,5.6,12,1,0,0,0,900,null],[491278,"James","Dean James",8,2,55,4.6,19,2,0,2,0,757,null],[492770,"Dirksen","Julius Dirksen",8,2,45,1.7,17,0,1,0,1,564,null],[588736,"Saathof","Pim Saathof",8,2,40,0.0,0,0,0,0,0,0,null],[615380,"Waayers","Eus Waayers",8,2,39,0.2,0,0,0,0,0,31,null],[538072,"Van Zwam","Giovanni van Zwam",8,2,40,1.1,7,0,0,0,0,318,null],[228653,"Sampsted","Alfons Sampsted",8,2,50,1.0,15,1,0,1,0,777,null],[533713,"Galvez","Tomas Galvez",8,2,48,0.1,5,4,0,1,0,60,null],[699925,"Salah Rahmouni","Yassir Salah Rahmouni",8,3,48,0.0,7,1,0,0,0,181,null],[449414,"Linthorst","Evert Linthorst",8,3,55,0.5,29,9,1,1,0,794,null],[486465,"Tengstedt","Søren Tengstedt",8,3,73,34.2,79,15,8,2,0,844,null],[588737,"Weijenberg","Robbin Weijenberg",8,3,44,0.0,1,1,0,0,0,6,null],[422185,"Suray","Mathis Suray",8,3,69,7.3,44,5,3,3,0,823,null],[505422,"Sivertsen","Oskar Sivertsen",8,3,55,0.1,15,5,0,2,0,176,null],[475357,"Margaret","Richonell Margaret",8,3,56,0.1,3,0,0,0,0,48,null],[246074,"Meulensteen","Melle Meulensteen",8,3,59,3.2,38,2,1,3,1,772,null],[477408,"Edvardsen","Victor Edvardsen",8,4,72,10.9,48,2,3,4,1,851,null],[689065,"Boakye","Ofosu Boakye",8,4,44,0.8,0,0,0,0,0,0,null],[248885,"Baeten","Thibo Baeten",8,4,49,0.4,12,1,0,1,0,201,null],[491792,"Sigurdarson","Stefán Sigurdarson",8,4,60,5.1,40,1,4,1,0,571,null],[554831,"Flataker","Erik Flataker",8,4,59,0.1,13,0,1,0,1,240,null],[643167,"Jukic","Tino Jukic",8,2,45,0.0,1,0,0,0,0,17,null],[722367,"Tijman","Dani Tijman",8,2,40,0.0,0,0,0,0,0,0,null],[730497,"Hulleman","Thomas Hulleman",8,1,40,0.0,0,0,0,0,0,0,null],[72162,"Cillessen","Jasper Cillessen",8,1,45,0.1,0,0,0,0,0,0,null],[497857,"Kaplan","Ahmetcan Kaplan",9,2,49,0.1,2,0,0,0,0,163,null],[490731,"Crettaz","Gonzalo Crettaz",9,1,49,7.4,13,1,0,0,0,675,null],[593016,"Entius","Freek Entius",9,1,39,0.2,0,0,0,0,0,0,null],[469265,"Pereira","Brayann Pereira",9,2,50,0.5,3,0,0,0,0,190,null],[230428,"Sandler","Philippe Sandler",9,2,49,4.0,1,0,0,0,0,128,null],[218127,"Ouwejan","Thomas Ouwejan",9,2,44,0.2,0,0,0,0,0,0,null],[76623,"Nuytinck","Bram Nuytinck",9,2,44,0.1,6,0,0,0,0,249,null],[568125,"Fonville","Deveron Fonville",9,2,49,5.1,13,0,0,0,1,416,null],[223203,"Schuurs","Perr Schuurs",9,2,55,1.6,26,0,2,2,0,233,null],[565011,"Storm","Tobias Storm",9,2,43,2.8,11,1,0,0,0,758,null],[685672,"Sbai","Yousri Sbai",9,2,40,0.2,0,0,0,0,0,0,null],[55882,"Chery","Tjaronn Chery",9,3,78,22.8,48,2,4,2,0,684,null],[703749,"De Laat","Sam de Laat",9,3,43,0.1,0,0,0,0,0,0,null],[552034,"Lebreton","Noé Lebreton",9,3,68,3.8,35,8,2,1,0,697,null],[458683,"Nejašmić","Darko Nejasmic",9,3,64,2.5,27,7,1,1,1,650,null],[623206,"Kers","Kevin Kers",9,3,45,0.1,14,2,1,0,0,313,null],[489855,"Hansen-Aarøen","Isak Hansen-Aarøen",9,3,49,0.1,3,0,0,0,0,152,null],[422078,"Willumsson","Willum Willumsson",9,3,64,0.1,14,0,1,1,0,153,null],[711438,"Van de Wiel","Merijn van de Wiel",9,3,44,0.1,0,0,0,0,0,0,null],[664261,"Tahaui","Adam Tahaui",9,3,59,0.3,26,1,2,0,0,390,null],[223707,"Ogawa","Koki Ogawa",9,4,69,1.0,0,0,0,0,0,0,null],[55543,"Linssen","Bryan Linssen",9,4,78,11.3,19,2,1,0,1,634,null],[240860,"Sierhuis","Kaj Sierhuis",9,4,79,6.9,19,4,2,1,0,291,null],[217119,"Monteiro","Jamiro Monteiro",9,3,57,0.5,13,2,0,0,0,520,null],[220046,"Mor","Emre Mor",9,3,70,0.4,7,0,0,1,0,73,null],[635361,"Bischoff","Clement Bischoff",9,3,68,1.1,24,7,1,1,1,565,null],[62399,"Tadić","Dusan Tadić",9,3,82,4.2,17,0,0,1,0,619,null],[624891,"Geneste","Joep Geneste",9,1,40,0.0,0,0,0,0,0,0,null],[705927,"Moslih","Yassin Moslih",9,2,40,0.1,0,0,0,0,0,0,null],[488025,"Polster","Nikolas Polster",9,1,45,0.0,5,0,0,0,0,225,null],[503593,"Gabriel","Gabriel Costa Brás",9,2,44,0.0,5,0,0,0,0,284,null],[569009,"Kabar","Almugera Kabar",9,2,46,0.0,2,0,0,0,0,221,null],[218358,"Geiger","Dennis Geiger",9,3,60,0.0,12,0,0,1,0,246,null],[638556,"Thomas","Ayodele Thomas",9,3,68,0.0,5,0,0,0,0,178,null],[247957,"Bakker","Mitchel Bakker",9,2,49,0.0,1,1,0,0,0,78,null],[551220,"De Graaff","Tom De Graaff",10,1,42,1.0,0,0,0,0,0,0,null],[219250,"Schendelaar","Jasper Schendelaar",10,1,45,2.9,30,3,0,0,1,893,null],[543310,"Verduin","Duke Verduin",10,1,39,0.7,0,0,0,0,0,0,null],[204641,"Floranus","Sherel Floranus",10,2,45,1.4,0,0,0,0,0,419,null],[512115,"Aertssen","Olivier Aertssen",10,2,44,0.2,15,2,0,0,1,870,null],[446023,"Graves","Simon Graves",10,2,45,0.3,21,4,0,0,1,893,null],[565814,"Van der Haar","Damian van der Haar",10,2,44,0.3,26,7,0,1,3,440,null],[492630,"Velthuis","Tijs Velthuis",10,2,44,0.1,2,0,0,0,0,79,null],[646060,"Ruward","Dylan Ruward",10,2,39,0.1,0,0,0,0,0,0,null],[59836,"Viergever","Nick Viergever",10,2,45,5.9,25,2,1,0,1,893,null],[204650,"Velanas","Odysseus Velanas",10,3,58,0.0,6,0,0,0,0,108,null],[173827,"Thomas","Ryan Thomas",10,3,53,0.3,16,2,0,0,1,684,null],[625317,"Fichtinger","Nick Fichtinger",10,3,48,0.0,4,0,0,0,0,147,null],[470845,"Mbayo","Dylan Mbayo",10,3,55,0.8,35,1,0,5,3,716,null],[681499,"Pereira da Gama","Jadiel Pereira da Gama",10,3,47,0.1,0,0,0,0,0,0,null],[660647,"Reiziger","Gabriel Reiziger",10,3,43,1.2,4,0,0,0,0,134,null],[636862,"Rahajaän","Givaro Rahajaän",10,3,44,0.0,0,0,0,0,0,0,null],[513594,"Sommer","Tobias Sommer",10,3,55,0.1,22,1,0,1,1,879,null],[247958,"Oosting","Thijs Oosting",10,3,63,1.9,41,5,2,2,3,686,null],[202127,"Namli","Younes Namli",10,3,64,0.1,0,0,0,0,0,-7,null],[240795,"Sørensen","Elias Sørensen",10,3,50,0.1,24,6,2,0,1,389,null],[233378,"Kostons","Koen Kostons",10,4,67,4.6,30,1,4,0,1,670,null],[544005,"Cissoko","Ibrahim Cissoko",10,3,53,0.8,17,0,1,1,0,350,null],[589895,"Bürger","Jan Bürger",10,2,40,0.0,4,1,0,0,0,50,null],[459655,"Van Hooijdonk","Sydney van Hooijdonk",10,4,65,0.3,12,2,1,0,0,281,null],[455784,"Krastev","Filip Krastev",10,3,65,0.0,0,0,0,0,0,0,null],[722747,"Van der Wal","Gilles van der Wal",10,3,45,0.0,6,2,0,0,1,176,null],[215145,"Lammers","Sam Lammers",11,4,73,1.0,2,0,0,0,0,21,null],[568331,"Sano","Kodai Sano",11,3,74,6.7,22,1,1,0,1,732,null],[588352,"Ouaissa","Sami Ouaissa",11,3,73,4.2,2,0,0,0,0,78,null],[167073,"Olij","Nick Olij",11,1,48,0.8,0,0,0,0,0,0,null],[446189,"Kovar","Matej Kovar",11,1,54,6.3,27,4,0,0,1,900,null],[583584,"Smolenaars","Tijn Smolenaars",11,1,39,0.1,0,0,0,0,0,0,null],[240244,"Obispo","Armando Obispo",11,2,51,2.9,25,2,0,1,1,858,null],[510162,"Flamingo","Ryan Flamingo",11,2,54,6.0,24,0,1,0,1,522,null],[250676,"Dest","Sergiño Dest",11,2,71,29.3,49,4,2,3,1,808,null],[429171,"Mauro Jr.","Mauro Júnior",11,2,70,33.6,36,1,1,2,1,835,null],[615389,"Kuhn","Wessel Kuhn",11,2,39,0.0,0,0,0,0,0,0,null],[534223,"Nagalo","Adamo Nagalo",11,2,44,0.0,0,0,0,0,0,0,null],[554683,"Gasiorowski","Yarek Gasiorowski",11,2,57,4.8,3,0,0,0,0,33,null],[636864,"Merién","Fabian Merién",11,2,39,0.1,0,0,0,0,0,0,null],[501441,"Sildillia","Kiliann Sildillia",11,2,46,0.3,2,0,0,0,0,11,null],[577717,"Van Bommel","Ruben van Bommel",11,3,93,23.7,40,2,2,4,1,602,null],[231765,"Til","Guus Til",11,3,119,11.5,59,6,6,2,1,795,null],[230152,"Schouten","Jerdy Schouten",11,3,64,0.1,0,0,0,0,0,0,null],[231653,"Veerman","Joey Veerman",11,3,110,1.0,2,0,0,0,0,90,null],[45034,"Perisic","Ivan Perisic",11,3,99,7.7,32,2,2,1,0,597,null],[549127,"Bajraktarevic","Esmir Bajraktarevic",11,3,78,0.4,25,2,1,3,1,272,null],[510657,"Driouech","Couhaib Driouech",11,3,75,0.9,0,0,0,0,0,0,null],[624896,"Van den Berg","Joel van den Berg",11,3,50,0.0,0,0,0,0,0,0,null],[235905,"Man","Dennis Man",11,3,81,0.5,4,1,0,0,0,105,null],[546410,"Wanner","Paul Wanner",11,3,88,0.4,23,0,0,4,0,400,null],[651260,"Fernandez","Noah Fernandez",11,3,59,1.3,18,0,1,0,1,343,null],[624893,"Koller","Jim Koller",11,3,44,0.0,0,0,0,0,0,0,null],[463414,"Mijnans","Sven Mijnans",11,3,107,3.7,39,0,5,1,1,414,null],[439742,"Pepi","Ricardo Pepi",11,4,114,9.0,27,0,3,0,0,430,null],[108168,"Pléa","Alassane Pléa",11,4,93,0.5,4,0,0,1,0,22,null],[630312,"Santos","Ayoni Santos",11,3,53,0.4,9,0,0,0,0,321,null],[650593,"Bouhamdi","Amir Bouhamdi",11,3,43,0.6,13,0,0,2,0,197,null],[576738,"Bassey","Essien Bassey",11,2,39,0.1,0,0,0,0,0,0,null],[650596,"Cornecion","Shuryjano Cornecion",11,3,44,0.0,3,1,0,0,0,43,null],[104215,"Kostić","Filip Kostić",11,2,63,0.5,7,1,0,1,0,237,null],[247955,"Geertruida","Lutsharel Geertruida",11,2,66,2.7,24,6,1,2,0,437,null],[664246,"Ngom","Khadim Ngom",11,1,40,0.0,0,0,0,0,0,0,null],[685552,"Bro Hansen","Mikkel Hansen",11,4,60,0.0,2,1,0,0,0,64,null],[511168,"Hilgers","Mees Hilgers",12,2,49,0.3,0,0,0,0,0,0,null],[441300,"Proper","Dirk Proper",12,3,54,0.9,13,0,0,1,1,408,null],[578503,"Klaverboer","Bernt Klaverboer",12,1,50,6.1,36,2,0,0,4,900,null],[165388,"Noppert","Andries Noppert",12,1,44,0.4,0,0,0,0,0,0,null],[703186,"Schreuder","Timo Schreuder",12,1,40,0.2,0,0,0,0,0,0,null],[233375,"Kersten","Sam Kersten",12,2,47,9.6,36,1,0,1,3,854,null],[546517,"Willemsen","Maas Willemsen",12,2,46,5.8,34,1,0,0,4,895,null],[538834,"Hopland","Nikolai Hopland",12,2,45,0.0,1,0,0,0,0,7,null],[535089,"Petrov","Hristiyan Petrov",12,2,44,0.1,7,1,0,0,0,93,null],[554837,"Braude","Oliver Braude",12,2,56,4.8,43,4,2,1,3,765,null],[487709,"Zagaritis","Vasilios Zagaritis",12,2,55,5.7,31,1,0,0,4,900,null],[629311,"Egbring","Mats Egbring",12,2,40,0.7,9,0,0,0,1,82,null],[681898,"Bouw","Robin Bouw",12,2,39,0.1,0,0,0,0,0,0,null],[609641,"Bladi","Darling Bladi",12,2,49,0.0,1,0,0,0,0,7,null],[208749,"Brouwers","Luuk Brouwers",12,3,63,0.4,2,0,0,0,0,31,null],[546816,"Smans","Levi Smans",12,3,64,0.1,27,0,0,4,3,337,null],[644623,"Linday","Marcus Linday",12,3,59,0.2,13,2,0,0,3,619,null],[515937,"Trenskow","Jacob Trenskow",12,3,86,18.9,69,15,6,2,4,864,null],[690499,"Jansen","Kai Jansen",12,3,44,0.1,0,0,0,0,0,0,null],[501599,"Rivera","Maxence Rivera",12,3,70,0.4,40,9,2,3,3,618,null],[490245,"Meerveld","Ringo Meerveld",12,3,68,2.8,32,7,2,1,1,569,null],[560108,"Courtens","Nolhan Courtens",12,3,45,0.5,28,2,2,0,3,617,null],[591233,"Rijssel","Jermaine Rijssel",12,3,44,0.0,0,0,0,0,0,0,null],[492976,"Oyen","Luca Oyen",12,3,60,0.0,21,1,2,1,0,208,null],[222699,"Vente","Dylan Vente",12,4,68,5.2,30,2,1,2,4,823,null],[696404,"Machine","Lanroy Machine",12,4,52,0.3,4,0,0,0,0,101,null],[549738,"Farji","Marko Jabbar Hussein Farji",12,3,63,0.0,9,1,1,0,0,72,null],[219177,"Uldrikis","Roberts Uldrikis",12,4,54,0.0,8,1,0,1,0,86,null],[748353,"Scholten","Jimte Scholten",12,2,39,0.0,0,0,0,0,0,0,null],[722005,"Schaken","Kirayno Schaken",12,3,45,0.0,0,0,0,0,0,0,null],[550223,"Kremers","Sten Kremers",12,1,40,0.0,0,0,0,0,0,0,null],[669179,"Bouziane","Anass Bouziane",12,3,45,0.0,0,0,0,0,0,0,null],[120043,"Brouwer","Michael Brouwer",13,1,45,0.3,11,1,0,0,0,630,null],[515847,"Kuiper","Pascal Kuiper",13,1,40,0.2,0,0,0,0,0,0,null],[107645,"Bednarek","Filip Bednarek",13,1,43,0.8,9,0,0,0,0,360,null],[609883,"Young","Marvin Young",13,2,55,10.5,26,1,2,1,0,881,null],[498217,"Quintero","Teo Quintero",13,2,48,0.4,6,1,0,0,0,113,null],[550453,"Kleijn","Mike Kleijn",13,2,45,0.0,0,0,0,0,0,0,null],[222693,"Reith","Boyd Reith",13,2,42,0.1,1,0,0,0,0,18,null],[85352,"Martins Indi","Bruno Martins Indi",13,2,44,1.8,9,1,0,0,0,719,null],[166377,"Kuipers","Bas Kuipers",13,2,50,2.0,19,1,0,3,0,900,null],[630606,"Verschuren","Nick Verschuren",13,2,45,3.0,21,2,1,0,0,663,null],[587115,"De Ligt","Max de Ligt",13,2,39,0.3,0,0,0,0,0,0,null],[643481,"Vianello","Giannino Vianello",13,2,39,0.3,0,0,0,0,0,0,null],[672642,"Martes","Lushendry Martes",13,2,45,2.8,20,1,2,0,0,881,null],[468815,"Mito","Shunsuke Mito",13,3,68,1.5,17,0,0,2,1,421,null],[220600,"Van Bergen","Mitchell van Bergen",13,3,64,0.4,14,1,0,1,0,358,null],[79901,"Toornstra","Jens Toornstra",13,3,54,0.5,27,6,2,1,1,417,null],[510170,"Baas","Julian Baas",13,3,50,0.1,15,0,0,1,1,458,null],[643483,"el Meftahi","Younes Jaber el Meftahi",13,3,44,0.0,0,0,0,0,0,0,null],[489856,"Roaldsøy","Alwande Roaldsøy",13,3,47,0.0,4,0,0,0,0,76,null],[492260,"Terho","Casper Terho",13,3,54,0.0,20,1,1,0,1,426,null],[511784,"Ideho","Joel Ideho",13,3,48,0.2,9,0,0,1,0,100,null],[546601,"Zonneveld","Milan Zonneveld",13,4,65,17.5,53,2,6,2,0,672,null],[703696,"Van Cruijsen","Robin van Cruijsen",13,3,59,0.2,18,2,1,0,0,415,null],[728234,"Lindhout","Duncan Lindhout",13,1,40,0.0,0,0,0,0,0,0,null],[666742,"Suur","Rik Suur",13,1,40,0.0,0,0,0,0,0,0,null],[652959,"Kostić","Andrej Kostic",13,4,60,0.1,8,1,0,1,0,76,null],[646066,"Hatenboer","Cedric Hatenboer",13,3,54,0.0,12,2,0,0,0,520,null],[538157,"Babadi","Isaac Babadi",13,3,55,0.4,25,4,1,3,0,380,null],[626619,"Kuster","Harrie Kuster",14,3,47,0.1,4,0,0,0,0,72,null],[547098,"Demircan","Emirhan Demircan",14,3,43,0.2,6,0,0,0,0,139,null],[664539,"Ahmed","Isaiah Ahmed",14,3,44,0.1,2,1,0,0,0,52,null],[482550,"Thórisson","Nökkvi Thórisson",14,4,54,2.1,22,2,1,1,3,528,null],[132100,"Koeman Jr.","Ronald Koeman Jr.",14,1,48,46.1,60,2,2,0,1,900,null],[650550,"Mulder","Finn Mulder",14,1,40,0.2,0,0,0,0,0,0,null],[465180,"Reiziger","Daan Reiziger",14,1,39,2.2,0,0,0,0,0,0,null],[664274,"Benzzine","Abdelrafie Benzzine",14,2,39,0.2,0,0,0,0,0,0,null],[179350,"Hardeveld","Jeff Hardeveld",14,2,53,14.4,16,0,0,0,1,513,null],[611885,"Oudsten","Rojendro Oudsten",14,2,40,0.1,5,1,0,0,0,125,null],[611882,"Olfers","Mano Olfers",14,2,40,0.1,0,0,0,0,0,0,null],[582400,"Noslin","Tyrese Noslin",14,2,50,0.0,0,0,0,0,0,0,null],[466381,"Ogidi Nwankwo","Nigel Ogidi Nwankwo",14,2,39,0.3,0,0,0,0,0,0,null],[593017,"Alders","Gerald Alders",14,2,45,1.3,20,0,0,0,3,591,null],[607727,"Soualhia","Abdelnour Soualhia",14,2,45,2.7,28,1,1,2,1,900,null],[134408,"Peersman","Marvin Peersman",14,2,49,3.3,16,1,0,0,1,886,null],[510779,"Owusu","Tyrone Owusu",14,3,49,2.2,51,8,4,1,3,841,null],[564251,"Rossen","Nils Rossen",14,3,53,0.2,22,2,0,0,2,836,null],[698792,"Koubini","Rayyan Koubini",14,3,45,0.0,0,0,0,0,0,0,null],[501776,"Brouwer","Patrick Brouwer",14,3,59,4.3,43,5,2,3,1,881,null],[704343,"Shenkman","Noach Shenkman",14,3,44,0.1,23,2,1,2,0,290,null],[231655,"Tejan","Kay Tejan",14,4,50,1.2,0,0,0,0,0,0,null],[680600,"Seedorf","Jelani Seedorf",14,4,44,3.3,14,1,0,0,0,494,null],[590863,"Hetli","Soufiane Hetli",14,4,50,1.0,4,0,0,0,1,152,null],[546398,"Rui Mendes","Rui Jorge Monteiro Mendes",14,3,50,0.4,18,1,1,0,1,551,null],[550225,"Aning","Prince Aning",14,2,40,0.1,6,0,0,0,0,110,null],[550458,"Rust","Fabiano Rust",14,3,43,0.0,1,0,0,0,0,25,null],[498047,"Caschili","Gabi Caschili",14,2,39,0.2,3,1,0,0,0,165,null],[494962,"Valk","Sem Valk",14,2,45,0.0,22,7,1,1,1,720,null],[622034,"Turay","Fofin Turay",14,3,45,0.0,0,0,0,0,0,0,null],[492765,"Martha","Ar'Jany Martha",14,3,45,0.0,7,2,0,0,0,198,null],[175948,"Van Gassel","Stijn van Gassel",15,1,45,14.0,30,3,0,1,2,900,null],[441276,"Raatsie","Calvin Raatsie",15,1,45,0.0,0,0,0,0,0,0,null],[678524,"Holla","Tijmen Holla",15,1,40,0.2,0,0,0,0,0,0,null],[511268,"Meissen","Rick Meissen",15,2,45,2.5,27,2,1,0,2,900,null],[546834,"Henderikx","Stan Henderikx",15,2,40,0.2,0,0,0,0,0,0,null],[508546,"Widell","Casper Widell",15,2,44,4.9,21,2,1,0,1,825,null],[513535,"Martens","Nolan Martens",15,2,40,1.4,7,0,0,0,1,119,null],[664268,"Cairo","Guilliano Cairo",15,2,40,0.1,2,0,0,0,0,13,null],[463214,"Janssen","Simon Janssen",15,2,47,9.4,32,1,0,3,2,631,null],[625950,"K. Bos","Kasey Bos",15,2,45,0.0,11,6,0,0,1,244,null],[702226,"Van de Wetering","Marlon van de Wetering",15,2,45,0.0,0,0,0,0,0,0,null],[531036,"Carlén","Adam Carlén",15,3,50,0.0,0,0,0,0,0,0,null],[582592,"Yegoian","Irakli Yegoian",15,3,63,14.8,57,1,3,5,2,884,null],[717603,"El Hamdaoui","Noa El Hamdaoui",15,3,45,0.3,0,0,0,0,0,0,null],[465550,"Tielemans","Mathijs Tielemans",15,3,49,0.0,0,0,0,0,0,0,null],[494959,"Naujoks","Noah Naujoks",15,3,65,4.8,16,1,2,0,1,148,null],[543294,"Hartjes","Lennard Hartjes",15,3,50,0.9,27,2,1,0,2,877,null],[510171,"Sanches Fernandes","Derensili Sanches Fernandes",15,3,55,0.2,0,0,0,0,0,0,null],[550219,"De Regt","Gyan de Regt",15,3,54,4.5,6,0,0,1,1,84,null],[554179,"Van Vianen","Daniël van Vianen",15,3,50,0.1,10,2,0,0,1,367,null],[649943,"Finey","Yacqub Finey",15,3,53,0.0,1,0,0,0,0,10,null],[584686,"Groen","Nesto Groen",15,4,44,0.9,12,1,1,0,0,159,null],[554203,"Garden","David Garden",15,4,50,2.2,31,1,3,0,2,649,null],[634249,"Plug","Jan Plug",15,2,41,10.6,18,2,0,0,2,900,null],[576736,"Sliti","Aymen Sliti",15,3,50,1.6,39,3,3,1,2,584,null],[579076,"Silva Timas","Ilano Silva Timas",15,3,49,0.0,11,0,0,1,0,222,null],[437615,"Biai","Celton Biai",15,1,44,0.0,0,0,0,0,0,0,null],[513209,"Sulzbacher","Valentin Sulzbacher",15,3,49,0.0,7,0,1,0,0,88,null],[648444,"Turay","Osman Turay",15,2,40,0.1,2,0,0,0,0,78,null],[165210,"Jahanbakhsh","Alireza Jahanbakhsh",15,3,58,0.1,7,1,0,0,0,108,null],[577318,"Domínguez","Mario Domínguez",15,4,54,0.0,4,0,0,0,0,105,null],[543467,"Thorsteinsson","Ágúst Thorsteinsson",15,3,50,0.0,20,1,0,2,1,524,null],[569014,"Da Silva Moreira","Eric da Silva Moreira",15,2,45,0.1,14,0,0,0,1,438,null],[703872,"Kramer","Caleb Kramer",16,1,39,0.6,0,0,0,0,0,0,null],[492165,"Nikièma","Kilian Nikièma",16,1,45,3.3,26,1,0,0,0,893,null],[707136,"Bergtop","Sanyika Bergtop",16,2,39,0.3,0,0,0,0,0,0,null],[574370,"Hokke","Milan Hokke",16,2,45,0.3,11,1,0,1,0,642,null],[557881,"Mulder","Pascal Mulder",16,2,44,0.2,12,1,0,0,0,874,null],[448159,"Sylla","Sékou Sylla",16,2,44,0.4,10,0,1,0,0,524,null],[513426,"Waem","Matteo Waem",16,2,43,0.2,9,1,0,0,0,612,null],[675896,"De Ruijter","Illaijh de Ruijter",16,2,42,0.4,2,0,0,0,0,198,null],[444853,"Hawkins","Jalen Hawkins",16,3,47,0.0,12,2,0,0,1,446,null],[498049,"Jiménez","Mylian Jiménez",16,3,48,0.0,3,0,0,0,0,152,null],[554438,"Kilo","Juho Kilo",16,3,53,0.6,31,2,1,1,0,893,null],[645067,"De Bruin","Finn de Bruin",16,3,48,0.0,6,0,0,1,0,175,null],[724917,"Van Loenen","Dani van Loenen",16,3,43,0.2,0,0,0,0,0,0,null],[491598,"Peupion","Cameron Peupion",16,3,52,0.0,0,1,0,0,0,16,null],[510620,"Rottier","Evan Rottier",16,3,59,0.6,45,5,2,5,0,785,null],[450074,"Thomas","Nigel Thomas",16,3,54,0.1,31,13,3,1,0,282,null],[103189,"Van Mieghem","Daryl van Mieghem",16,3,57,0.3,18,4,0,1,0,484,null],[577017,"Bal","Jesse Bal",16,4,49,0.4,15,1,1,0,0,337,null],[492915,"Reischl","Luka Reischl",16,4,51,0.2,2,0,0,0,0,57,null],[568281,"Sín","Matej Sín",16,3,65,0.0,13,1,1,0,0,251,null],[515429,"Wilhelm","Lasse Wilhelm",16,2,40,0.1,3,0,0,0,0,62,null],[420922,"Zamburek","Jan Zamburek",16,3,47,0.2,6,0,0,0,0,217,null],[452589,"Thiede","Niclas Thiede",16,1,42,0.0,0,0,0,0,0,0,null],[437370,"Bárány","Donát Bárány",16,4,59,0.0,10,0,1,0,0,63,null],[587537,"Eduardo","Yannick Eduardo",16,4,59,0.9,38,1,3,2,0,742,null],[621217,"Raterink","Othniël Raterink",16,2,45,0.1,7,0,0,0,0,485,null],[492656,"Jensen-Abbew","Jonas Jensen-Abbew",16,2,45,0.0,8,1,0,0,0,442,null],[644573,"Eekhout","Sem Eekhout",16,1,40,0.0,0,0,0,0,0,0,null],[234548,"Pozo","Álex Pozo",16,3,55,0.0,2,1,0,0,0,74,null],[577122,"Van Duijl","Billy Van Duijl",17,2,44,1.4,32,6,0,2,3,604,null],[573060,"El Arguioui","Rafik El Arguioui",17,3,48,10.2,55,10,5,1,2,893,null],[494964,"Jansen","Thijs Jansen",17,1,44,1.2,30,2,0,0,2,900,null],[700278,"Kalisvaart","Matthijs Kalisvaart",17,1,40,0.1,0,0,0,0,0,0,null],[554604,"Meijster","Jasper Meijster",17,1,40,0.1,0,0,0,0,0,0,null],[512129,"Amofa","Jamal Amofa",17,2,47,0.2,9,0,0,1,0,463,null],[578361,"Baouf","Ismaël Baouf",17,2,48,1.5,25,8,1,0,2,851,null],[512318,"Berkhout","Jorn Berkhout",17,2,44,0.0,3,1,0,0,0,107,null],[491412,"Mulders","Rik Mulders",17,2,43,0.1,9,6,0,0,1,181,null],[669176,"Priem","Jelte Priem",17,2,39,0.2,0,0,0,0,0,0,null],[624929,"Jetten","Lucas Jetten",17,2,39,4.4,3,1,0,0,0,348,null],[675342,"Costarelli","Morgan Costarelli",17,2,45,0.7,34,15,0,2,3,674,null],[671098,"Van de Pavert","Ryan van de Pavert",17,3,44,0.3,1,0,0,0,0,45,null],[692988,"Kvam","Fabian Kvam",17,3,48,0.0,18,0,1,0,2,342,null],[669397,"Apkakou","Ethan Apkakou",17,3,47,0.0,4,0,0,0,0,122,null],[694232,"Visser","Daan Visser",17,3,44,0.0,0,0,0,0,0,0,null],[724919,"Look","Danyello Look",17,3,47,0.0,0,0,0,0,0,0,null],[429439,"Souren","Nicky Souren",17,3,49,0.2,25,2,0,1,2,900,null],[703219,"Van der Heide","Wiebe van der Heide",17,3,43,0.3,0,0,0,0,0,0,null],[632961,"Henstra","Iwan Henstra",17,3,48,0.2,16,1,1,0,0,398,null],[625192,"Kooistra","Wiebe Kooistra",17,3,50,0.0,12,4,0,2,0,197,null],[545713,"Hamache","Ilyès Hamache",17,3,54,1.8,56,11,5,2,3,735,null],[576753,"Vink","Skye Vink",17,4,46,0.9,9,1,0,0,0,249,null],[513579,"Binder","Nicolas Binder",17,4,51,1.9,47,12,5,2,2,418,null],[624906,"Bouhoudane","Sami Bouhoudane",17,4,49,0.4,13,0,0,1,0,404,null],[738028,"Van der Goot","Wessel van der Goot",17,3,44,0.0,2,0,0,0,0,17,null],[437878,"Bouah","Devid Eugene Bouah",17,2,45,0.0,13,0,0,0,2,392,null],[177890,"Maertens","Mathieu Maertens",17,3,50,0.0,14,3,0,0,4,370,null],[247708,"Plogmann","Luca Plogmann",17,1,45,0.0,0,0,0,0,0,0,null],[488357,"Ceka","Jason Çeka",17,3,50,0.0,12,7,1,1,0,213,null],[549945,"Asselman","Wout Asselman",17,3,45,0.0,0,0,0,0,0,0,null],[538037,"Dekker","Maxim Dekker",18,2,44,0.1,7,0,0,0,0,530,null],[647866,"Boogaard","Kasper Boogaard",18,3,53,0.1,8,0,0,0,0,345,null],[514353,"Twigt","Calvin Twigt",18,3,50,0.3,21,2,0,1,0,647,null],[179412,"Van Crooij","Vito van Crooij",18,3,65,0.2,14,1,0,3,0,234,null],[638558,"Gürbüz","Eser Gürbüz",18,3,47,0.3,14,0,0,0,2,345,null],[165457,"Didillon-Hödl","Thomas Didillon-Hödl",18,1,43,0.9,2,0,0,0,0,157,null],[682041,"De Leeuw","Karst de Leeuw",18,1,40,2.0,4,0,0,0,0,180,null],[90092,"Van der Steen","Wouter van der Steen",18,1,40,0.8,2,0,0,0,0,22,null],[540409,"Stam","Finn Stam",18,2,44,0.9,6,-1,0,0,0,900,null],[219064,"Ciranni","Alessandro Ciranni",18,2,41,0.0,9,0,1,0,0,237,null],[492954,"Et-Taïbi","Amine Et-Taïbi",18,2,40,0.2,2,0,0,0,0,56,null],[223841,"Hoogma","Justin Hoogma",18,2,44,0.2,1,0,0,0,0,225,null],[664432,"Mathijsen","Jens Mathijsen",18,2,39,0.7,0,0,0,0,0,0,null],[730412,"Scheepens","Kayen Scheepens",18,2,40,0.2,0,0,0,0,0,0,null],[489651,"Tjoe-A-On","Nathan Tjoe-A-On",18,2,45,0.4,16,-1,0,2,1,841,null],[664435,"Van Loon","Per van Loon",18,2,44,0.0,4,0,0,0,0,319,null],[599149,"Lachkar","Amine Lachkar",18,3,50,0.0,0,0,0,0,0,0,null],[184511,"Schuurman","Jari Schuurman",18,3,50,0.0,1,0,0,0,0,9,null],[641712,"Zarrouk","Anass Zarrouk",18,3,50,0.0,9,6,1,0,0,128,null],[680672,"Van Aalst","Uriël van Aalst",18,3,50,0.2,35,2,2,2,0,886,null],[614294,"Abildgaard","Lasse Abildgaard",18,3,50,0.0,0,0,0,0,0,0,null],[649758,"Culum","Armin Culum",18,3,50,0.0,1,1,0,0,0,45,null],[550456,"Slory","Jaden Slory",18,3,58,0.5,24,1,1,0,0,805,null],[533633,"Haen","Devin Haen",18,4,55,4.9,36,5,3,1,0,900,null],[174454,"Verheydt","Thomas Verheydt",18,4,49,0.6,11,1,1,0,0,139,null],[703876,"Baartmans","Siegert Baartmans",18,4,45,0.1,0,0,0,0,0,0,null],[492980,"Lemmens","Mats Lemmens",18,2,44,0.0,6,1,0,0,0,218,null],[184508,"Ter Avest","Hidde ter Avest",18,2,45,0.3,11,-2,0,1,0,711,null],[736839,"Van Esdonk","Julian van Esdonk",18,3,44,0.0,1,0,0,0,0,1,null],[748274,"Mouhoul","Ismael Mouhoul",18,3,44,0.1,0,0,0,0,0,1,null],[748271,"Iglesias","Divano Iglesias",18,3,44,0.0,1,0,0,0,0,1,null],[111285,"Vilhena","Tonny Vilhena",18,3,55,0.0,15,1,1,0,0,421,null],[662216,"Muller","Thijs Muller",18,3,50,0.0,0,0,0,0,0,0,null],[465548,"Delanghe","Maxime Delanghe",18,1,44,0.0,13,0,0,0,0,540,null],[596047,"Obi","Chido Obi",18,4,52,0.3,4,0,0,0,0,48,null]]};      // spelersdata, door build.py ingevoegd (public/data/players.json)
+const SITE = {"brand": "Differentiale", "brandSplit": ["Differentia", "le"], "tagline": "de dagelijkse Eredivisie-puzzel", "description": "Raad elke dag de geheime Eredivisie-speler in zes pogingen. Gratis, met poules voor je vrienden.", "url": "https://example.nl/", "contact": "info@example.nl", "startDate": "2026-11-01"};       // site.json: naam, tagline, url, startdatum (door build.py ingevoegd)
+const TZ = "Europe/Amsterdam";
+const START = SITE.startDate;    // dag 0; moet gelijk zijn aan START_DATE in supabase/schema.sql
+const BRAND = SITE.brand, TAGLINE = SITE.tagline;
+const COLORS = {AJA:"#d2122e",AZ:"#e30613",GRO:"#008a3e",TWE:"#e2001a",UTR:"#e30613",FEY:"#e30613",FOR:"#ffd200",GAE:"#e30613",NEC:"#d71920",PEC:"#005ca9",PSV:"#ed1c24",HEE:"#0055a5",SPA:"#e30613",TEL:"#ffffff",EXC:"#e30613",ADO:"#00843d",CAM:"#ffd200",WIL:"#e30613"};
+const POS = {1:"KEE",2:"VER",3:"MID",4:"AAN"};
+const POSNL = {1:"keeper",2:"verdediger",3:"middenvelder",4:"aanvaller"};
+const TOL = {price:10, own:8, pts:10, gw:3};
+const KEYS = ["team","pos","price","own","pts","gw"];
+
+/* ---------- utils ---------- */
+const $ = s => document.querySelector(s);
+const el = (tag, attrs={}, ...kids) => { const e=document.createElement(tag); for(const [k,v] of Object.entries(attrs)){ if(k==="class") e.className=v; else if(k==="text") e.textContent=v; else if(k.startsWith("on")) e.addEventListener(k.slice(2),v); else if(v!==false&&v!=null) e.setAttribute(k,v===true?"":v);} for(const k of kids.flat()){ if(k==null||k===false) continue; e.append(k.nodeType?k:document.createTextNode(String(k))); } return e; };
+const norm = s => (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ø/g,"o").replace(/ß/g,"ss").toLowerCase();
+const ls = { get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }, set(k,v){ try{ if(v==null) localStorage.removeItem(k); else localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
+function dayStr(d=new Date()){ return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(d); }
+const DAY = 864e5;
+const dms = ds => Date.parse(ds+"T00:00:00Z");
+const dayIndex = ds => Math.round((dms(ds)-dms(START))/DAY);
+const fmtPrice = c => "€"+(c/10).toFixed(1).replace(".",",")+"m";
+const fmtOwn = o => (+o%1===0 ? (+o).toFixed(0) : (+o).toFixed(1))+"%";
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.remove("hide"); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.add("hide"),2200); }
+const errText = e => String((e && e.message) || "Er ging iets mis");
+
+/* ---------- data (zoeken en oefenronde) ---------- */
+let DATA, P = {}, LIST = [], TEAM = {};
+function useData(d){
+  DATA = d; P = {}; TEAM = {};
+  for(const [id,s,n] of d.teams) TEAM[id] = {s,n};
+  LIST = d.players.map(r => { const p = {code:r[0],web:r[1],full:r[2],team:r[3],pos:r[4],price:r[5],own:r[6],pts:r[7],gw:r[8],g:r[9],a:r[10],cs:r[11],min:r[12],num:r[13]??null}; p.key = norm(p.web+" "+p.full); P[p.code]=p; return p; });
+  LIST.sort((a,b)=>b.own-a.own || b.pts-a.pts);
+}
+useData(DATA0);
+const teamS = id => (TEAM[id]||{s:"?"}).s, teamN = id => (TEAM[id]||{n:"?"}).n;
+
+/* ---------- server (Supabase, alleen via functies) ---------- */
+const CFG = window.GAME_CONFIG || {};
+const API = CFG.supabaseUrl && CFG.supabaseAnonKey ? CFG.supabaseUrl.replace(/\/+$/,"") + "/rest/v1/rpc/" : null;
+async function rpc(fn, args){
+  const r = await fetch(API + fn, {method:"POST", headers:{"Content-Type":"application/json", apikey:CFG.supabaseAnonKey, Authorization:"Bearer "+CFG.supabaseAnonKey}, body:JSON.stringify(args||{})});
+  const txt = await r.text(); let j = null; try{ j = txt ? JSON.parse(txt) : null; }catch(e){}
+  if(!r.ok) throw new Error((j && j.message) || ("Serverfout "+r.status));
+  return j;
+}
+const ID_KEY = "dnl:id";
+const auth = () => ({p_player:S.id.player, p_secret:S.id.secret});
+function fetchJSON(url){ return fetch(url+"?v="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null); }
+
+/* ---------- app state ---------- */
+const S = {
+  tab:"play", today:dayStr(), mode:"daily",
+  id: ls.get(ID_KEY),        // {player, secret} op dit apparaat
+  srv:null,                  // spel van vandaag zoals de server het geeft
+  me:null, leagues:[],
+  practice:null,
+  loading:true, err:null, busy:false,
+  board:(ls.get("dnl:boardtab")==="total"?"total":"week"), scope:null, rows:null, boardErr:null, boardLoading:false,
+  q:"", hi:0, pendingJoin:null
+};
+
+/* ---------- vergelijken (oefenronde; de echte vergelijking doet de server) ---------- */
+function compare(g, a){
+  const num = k => { const d=a[k]-g[k]; if(Math.abs(d)<1e-9) return {c:"exact"}; return {c:Math.abs(d)<=TOL[k]+1e-9?"close":"miss", d:d>0?1:-1}; };
+  return {team:{c:g.team===a.team?"exact":"miss"}, pos:{c:g.pos===a.pos?"exact":"miss"}, price:num("price"), own:num("own"), pts:num("pts"), gw:num("gw")};
+}
+// Eerste letter van de achternaam (hint 2), gelijk aan dn_initial op de server
+const initialOf = web => norm(String(web||"").replace(/^(van der |van den |van de |van |de |den |der |ter |ten |te |el |al )/i,"")).charAt(0).toUpperCase();
+const scoreFor = (n, hints, won) => won ? Math.max(0, 70-10*n-5*hints) : 0;
+
+// Eén weergave voor zowel het echte spel als de oefenronde
+function view(){
+  if(S.mode==="practice"){
+    const g = S.practice, a = P[g.answer];
+    const rows = g.guesses.map(c=>({...P[c], fb:compare(P[c], a)}));
+    const won = g.guesses.includes(g.answer), done = won || g.guesses.length>=6 || !!g.gaveUp;
+    let hint = null;
+    if(g.hints>=1) hint = {goals:a.g, assists:a.a, initial: g.hints>=2 ? initialOf(a.web) : null};
+    return {rows, hints:g.hints, hint, done, won, gave_up:!!g.gaveUp, points:scoreFor(rows.length, g.hints, won), answer: done ? a : null,
+            practice:true};
+  }
+  return S.srv;
+}
+
+// Van welke afgeronde gameweek de cijfers zijn: de server is leidend, anders het databestand
+const gwNow = () => (S.mode!=="practice" && S.srv && S.srv.round) || DATA.gw;
+
+/* ---------- opstarten ---------- */
+function applyGet(r){ S.srv = r; S.me = r.me; S.leagues = r.leagues || []; }
+async function refresh(){
+  if(!API || !S.id) return;
+  try{
+    const r = await rpc("dn_get", auth());
+    applyGet(r); S.err = null; S.today = dayStr();
+  }catch(e){
+    if(/Onbekende speler/.test(errText(e))){ ls.set(ID_KEY, null); S.id = null; S.me = null; S.srv = null; askName(); }
+    else S.err = "Geen verbinding met de server. Probeer het zo opnieuw, of speel intussen een oefenronde.";
+  }
+  S.loading = false; render();
+}
+async function boot(){
+  render();
+  fetchJSON("data/players.json").then(d=>{ if(d && d.players && (d.updated>DATA.updated || d.gw>DATA.gw)){ useData(d); render(); } });
+  const m = location.hash.match(/^#poule-([A-Za-z0-9]{6})$/); if(m) S.pendingJoin = m[1].toUpperCase();
+  if(!API){ S.loading=false; S.err="Het spel is nog niet gekoppeld aan de server. Je kunt wel een oefenronde spelen."; render(); return; }
+  if(!S.id){ S.loading=false; render(); askName(); return; }
+  await refresh();
+  handlePendingJoin();
+  maybeYesterday();
+}
+
+/* ---------- wie was het gisteren? ---------- */
+const YDAY_KEY = "dnl:yday";
+async function fetchYesterday(){
+  if(!API || !S.id) return null;
+  try{ return await rpc("dn_yesterday", auth()); }catch(e){ return null; }
+}
+async function maybeYesterday(){
+  if(!S.srv || !(S.srv.day > 0) || ls.get(YDAY_KEY) === S.srv.day) return;
+  const y = await fetchYesterday(); if(!y || !y.answer) return;
+  if($("#modal").children.length) return;          // geen popup over een ander scherm heen
+  ls.set(YDAY_KEY, S.srv.day);
+  showYesterday(y);
+}
+async function openYesterday(){
+  const y = await fetchYesterday();
+  if(!y || !y.answer){ toast("Nog geen puzzel van gisteren"); return; }
+  showYesterday(y);
+}
+function showYesterday(y){
+  const a = y.answer, full = (P[a.code] && P[a.code].full) || a.web;
+  const mine = !y.played ? "Je speelde gisteren niet mee."
+    : y.won ? "Jij had hem in "+y.n+"/6 (+"+y.points+" ptn)."
+    : y.gave_up ? "Jij was gisteren een kleine speler 🏳️🤏"
+    : "Jij had hem niet in zes pogingen.";
+  const box = el("div",{class:"proud yday"});
+  box.insertAdjacentHTML("beforeend", shirtSVG(a));
+  box.append(el("div",{class:"eyebrow"},"Wie was het gisteren?"),
+    el("h2",{}, full),
+    el("p",{}, teamN(a.team)+" · "+POSNL[a.pos]+" · "+fmtPrice(a.price)+" · "+fmtOwn(a.own)+" eigendom"),
+    el("p",{class:"note",style:"margin-top:6px"}, mine),
+    el("div",{class:"row"}, el("button",{class:"btn",onclick:closeModal},"Naar de puzzel van vandaag")));
+  openModal(box, false);
+  const bx = document.querySelector(".modal .box"); if(bx) bx.classList.add("pop");
+}
+
+/* ---------- profiel ---------- */
+async function createPlayer(name){
+  name = name.trim().slice(0,24); if(!name){ toast("Kies een naam"); return false; }
+  if(!API){ toast("Nog niet gekoppeld aan de server"); return false; }
+  try{
+    const r = await rpc("dn_create_player", {p_name:name}); const row = Array.isArray(r) ? r[0] : r;
+    S.id = {player:row.player_id, secret:row.secret}; ls.set(ID_KEY, S.id);
+    await refresh(); return true;
+  }catch(e){ toast(errText(e)); return false; }
+}
+async function rename(name){
+  name = name.trim().slice(0,24); if(!name) return;
+  try{ await rpc("dn_rename", {...auth(), p_name:name}); S.me.name = name; toast("Naam opgeslagen"); render(); }
+  catch(e){ toast(errText(e)); }
+}
+async function restore(code){
+  if(!API) return;
+  try{
+    const r = await rpc("dn_restore", {p_recovery:code}); const row = Array.isArray(r) ? r[0] : r;
+    if(!row) throw new Error("Onbekende herstelcode");
+    S.id = {player:row.player_id, secret:row.secret}; ls.set(ID_KEY, S.id);
+    closeModal(); await refresh(); toast("Welkom terug, "+row.name+"!"); handlePendingJoin();
+  }catch(e){ toast(/herstelcode/i.test(errText(e)) ? "Deze herstelcode ken ik niet" : errText(e)); }
+}
+const fmtRec = r => String(r||"").replace(/(.{4})(?=.)/g,"$1-");
+const cleanRec = v => { let t = String(v||"").toUpperCase(); const i = t.lastIndexOf(":"); if(i>=0) t = t.slice(i+1); return t.replace(/[^A-Z0-9]/g,"").slice(-12); };
+function askName(){
+  const inp = el("input",{placeholder:"Bijv. Klopp's Kabouters", maxlength:24});
+  const btn = el("button",{class:"btn"},"Start");
+  const go = async () => { btn.disabled = true; if(await createPlayer(inp.value)){ closeModal(); render(); handlePendingJoin(); } btn.disabled = false; };
+  btn.addEventListener("click", go);
+  inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+  openModal(el("div",{},
+    el("h2",{text:"Kies je managernaam"}),
+    el("p",{class:"note",style:"margin-bottom:14px",text:"Deze naam zie je terug in het klassement. Je kunt hem later aanpassen."}),
+    el("div",{class:"field"}, inp, btn),
+    el("p",{class:"note",style:"margin-top:10px"}, "Speelde je al eerder? ", el("button",{class:"linkbtn",onclick:askRestore},"Herstel je profiel met je herstelcode")),
+    el("div",{style:"margin-top:18px"}, howTo())
+  ), false);
+  setTimeout(()=>inp.focus(),50);
+}
+function askRestore(){
+  const inp = el("input",{placeholder:"XXXX-XXXX-XXXX", autocapitalize:"characters", autocomplete:"off", spellcheck:"false", style:"text-transform:uppercase"});
+  // Plakt iemand een hele zin ("Mijn herstelcode: ABCD-…"), houd dan alleen de code over
+  const clean = () => { const c = cleanRec(inp.value); const f = fmtRec(c); if(inp.value !== f) inp.value = f; };
+  inp.addEventListener("input", clean);
+  inp.addEventListener("paste", () => setTimeout(clean, 0));
+  const go = () => restore(cleanRec(inp.value));
+  inp.addEventListener("keydown",e=>{ if(e.key==="Enter") go(); });
+  openModal(el("div",{},
+    el("h2",{text:"Profiel herstellen"}),
+    el("p",{class:"note",style:"margin-bottom:14px"},"Vul de herstelcode in die je op je vorige telefoon onder Profiel vond. Je punten, reeks en poules komen dan mee."),
+    el("div",{class:"field"}, inp, el("button",{class:"btn",onclick:go},"Herstel")),
+    el("div",{class:"row",style:"margin-top:14px"}, el("button",{class:"btn ghost",onclick:()=>{ closeModal(); if(!S.id) askName(); }},"Terug"))
+  ), false);
+  setTimeout(()=>inp.focus(),50);
+}
+
+/* ---------- modal ---------- */
+function openModal(content, closable=true){
+  const m = $("#modal"); m.innerHTML="";
+  const box = el("div",{class:"box"}, content);
+  if(closable) box.append(el("div",{class:"row",style:"margin-top:16px"}, el("button",{class:"btn ghost",onclick:closeModal},"Sluiten")));
+  const wrap = el("div",{class:"modal", onclick:e=>{ if(closable && e.target===wrap) closeModal(); }}, box);
+  m.append(wrap);
+}
+function closeModal(){ $("#modal").innerHTML=""; }
+function howTo(){
+  return el("div",{class:"howto"},
+    el("div",{class:"devwarn"}, el("b",{},"⚠️ Speel op één apparaat, of zet je profiel over met je herstelcode")),
+    el("h3",{style:"font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--hd);margin-bottom:8px",text:"Zo speel je"}),
+    el("p",{},"Raad elke dag de geheime Eredivisie-speler in zes pogingen. Bij elke gok zie je hoe dichtbij je zit op club, positie, fantasy-prijs, eigendom, seizoenspunten en punten van de laatste speelronde. Pijlen wijzen naar het antwoord."),
+    el("ul",{},
+      el("li",{},el("b",{class:"chip",style:"background:var(--exact)"},"Groen")," = exact"),
+      el("li",{},el("b",{class:"chip",style:"background:var(--close)"},"Geel")," = dichtbij (±€1,0m, ±8% eigendom, ±10 ptn, ±3 ptn in de laatste speelronde)"),
+      el("li",{},"Na je eerste gok kun je een hint openen: eerst de goals en assists van dit seizoen, daarna de eerste letter van de achternaam. Elke hint kost 5 punten."),
+      el("li",{},"Score: 60 punten bij de eerste gok, 50, 40… tot 10 bij de zesde. Elke hintstap kost 5. Niet geraden = 0."),
+      el("li",{},"Weet je het echt niet? Druk op 🏳️ Kleine speler om op te geven: 0 punten en je reeks stopt."),
+      el("li",{},"Het klassement is er per poule: per dag, per week (ma–zo) en per seizoen. Wie een week de meeste punten in de poule haalt, wint een weekbeker 🏆; gelijk = allebei."),
+      el("li",{},"Maak onder Klassement een poule en deel de code met je vrienden, of doe mee met hun code.")
+    )
+  );
+}
+
+/* ---------- render ---------- */
+function render(){
+  $("#sub").textContent = "Nr. "+(dayIndex(S.today)+1)+" · "+TAGLINE;
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on", b.dataset.tab===S.tab));
+  const v = $("#view"); v.innerHTML = "";
+  if(S.tab==="play") v.append(renderPlay());
+  if(S.tab==="board") v.append(renderBoard());
+  if(S.tab==="me") v.append(renderMe());
+}
+
+function tileFor(p, fb, k){
+  const c = fb[k], arrow = c.d>0 ? "▲" : c.d<0 ? "▼" : "";
+  if(k==="team"){ const s=teamS(p.team); return el("div",{class:"tile "+c.c}, el("span",{class:"club"},s), el("i",{class:"stripe",style:"background:"+(COLORS[s]||"#888")})); }
+  const main = k==="pos" ? POS[p.pos] : k==="price" ? (p.price/10).toFixed(1) : k==="own" ? fmtOwn(p.own) : p[k];
+  return el("div",{class:"tile "+c.c}, el("span",{class:"num"},main), arrow && el("span",{class:"ar"},arrow));
+}
+
+// Wat je weet: afgeleid uit de gekleurde vakjes (zonder het antwoord te kennen)
+function knowledge(rows){
+  const out = [];
+  const tHit = rows.find(r=>r.fb.team.c==="exact");
+  const notT = [...new Set(rows.filter(r=>r.fb.team.c!=="exact").map(r=>teamS(r.team)))];
+  out.push(["Club", tHit ? teamN(tHit.team) : (notT.length ? "niet "+notT.join(", ") : "?")]);
+  const pHit = rows.find(r=>r.fb.pos.c==="exact");
+  const notP = [...new Set(rows.filter(r=>r.fb.pos.c!=="exact").map(r=>POS[r.pos]))];
+  out.push(["Positie", pHit ? POS[pHit.pos] : (notP.length ? "niet "+notP.join(", ") : "?")]);
+  const range = (k, fmt) => {
+    let lo=-Infinity, hi=Infinity, loIn=false, hiIn=false;
+    const setLo=(v,inc)=>{ if(v>lo || (v===lo && !inc)){ lo=v; loIn=inc; } }, setHi=(v,inc)=>{ if(v<hi || (v===hi && !inc)){ hi=v; hiIn=inc; } };
+    for(const r of rows){ const f=r.fb[k], v=+r[k], t=TOL[k];
+      if(f.c==="exact") return fmt(v);
+      if(f.d>0){ if(f.c==="close"){ setLo(v,false); setHi(v+t,true); } else setLo(v+t,false); }
+      else { if(f.c==="close"){ setHi(v,false); setLo(v-t,true); } else setHi(v-t,false); }
+    }
+    if(lo===-Infinity && hi===Infinity) return "?";
+    if(lo===-Infinity) return (hiIn?"≤ ":"< ")+fmt(hi);
+    if(hi===Infinity) return (loIn?"≥ ":"> ")+fmt(lo);
+    return fmt(lo)+" – "+fmt(hi);
+  };
+  out.push(["Prijs", range("price", v=>fmtPrice(Math.max(0,v)))]);
+  out.push(["Eigendom", range("own", v=>Math.max(0,+v.toFixed(1))+"%")]);
+  out.push(["Seizoenspunten", range("pts", v=>String(v))]);
+  out.push(["Punten speelronde "+gwNow(), range("gw", v=>String(v))]);
+  return out;
+}
+
+function hintText(v){
+  const h = v.hint || {};
+  const ga = (h.goals??"?")+" "+(h.goals===1?"goal":"goals")+" en "+(h.assists??"?")+" "+(h.assists===1?"assist":"assists")+" dit seizoen";
+  return el("span",{}, el("span",{style:"display:block"}, "⚽ "+ga),
+    h.initial ? el("span",{style:"display:block;margin-top:4px"}, "🔤 Achternaam begint met een "+h.initial) : null);
+}
+
+function searchBox(v){
+  const inp = el("input",{placeholder:"Zoek een speler…", autocomplete:"off", autocapitalize:"off", spellcheck:"false", value:S.q, disabled:S.busy});
+  const sugg = el("div",{class:"sugg hide"});
+  const guessed = new Set(v.rows.map(r=>r.code));
+  const draw = () => {
+    const q = norm(inp.value.trim()); S.q = inp.value; sugg.innerHTML="";
+    if(!q){ sugg.classList.add("hide"); return; }
+    const res = LIST.filter(p=>!guessed.has(p.code) && (p.key.includes(q) || p.key.split(/[\s-]/).some(w=>w.startsWith(q)))).slice(0,8);
+    if(!res.length) sugg.append(el("div",{class:"note",style:"padding:12px"},"Geen speler gevonden"));
+    S.hi = Math.min(S.hi, Math.max(0,res.length-1));
+    res.forEach((p,i)=>sugg.append(el("button",{class:i===S.hi?"hi":"", onmousedown:e=>e.preventDefault(), onclick:()=>makeGuess(p.code)},
+      el("span",{class:"nm"}, p.web, p.web!==p.full ? el("small",{},p.full) : null),
+      el("span",{class:"meta num"}, teamS(p.team)+" · "+POS[p.pos]+" · "+fmtPrice(p.price)))));
+    sugg.classList.remove("hide"); sugg._res = res;
+  };
+  inp.addEventListener("input",()=>{ S.hi=0; draw(); });
+  inp.addEventListener("keydown",e=>{
+    const res = sugg._res||[];
+    if(e.key==="ArrowDown"){ S.hi=Math.min(res.length-1,S.hi+1); draw(); e.preventDefault(); }
+    else if(e.key==="ArrowUp"){ S.hi=Math.max(0,S.hi-1); draw(); e.preventDefault(); }
+    else if(e.key==="Enter" && res[S.hi]) makeGuess(res[S.hi].code);
+    else if(e.key==="Escape") sugg.classList.add("hide");
+  });
+  inp.addEventListener("blur",()=>setTimeout(()=>sugg.classList.add("hide"),300));
+  inp.addEventListener("focus",()=>{ if(inp.value) draw(); });
+  const box = el("div",{class:"searchbox"}, inp, sugg);
+  box.insertAdjacentHTML("afterbegin",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>');
+  if(S.q) setTimeout(draw,0);
+  return box;
+}
+
+function renderPlay(){
+  const box = el("div");
+  if(S.mode==="practice") box.append(el("div",{class:"banner"}, el("span",{},"Oefenronde, telt niet mee voor je reeks of het klassement."), el("button",{onclick:()=>{S.mode="daily";render();}},"Terug naar vandaag")));
+  const v = view();
+  if(!v){
+    if(S.err) box.append(el("div",{class:"banner"}, el("span",{},S.err), API && S.id ? el("button",{onclick:()=>{ S.loading=true; render(); refresh(); }},"Opnieuw") : null));
+    else box.append(el("div",{class:"panel",style:"text-align:center"}, el("p",{class:"note"}, S.loading ? "Puzzel laden…" : "Kies eerst een managernaam om te beginnen.")));
+    box.append(el("div",{class:"row",style:"margin-top:8px"}, el("button",{class:"btn ghost",onclick:startPractice},"Speel een oefenronde")));
+    return box;
+  }
+  if(S.err && !v.practice) box.append(el("div",{class:"banner"}, el("span",{},S.err)));
+  const n = v.rows.length;
+  if(!v.done) box.append(searchBox(v));
+  else if(S.hold){ const sb = searchBox(v), i = sb.querySelector("input"); if(i) i.disabled = true; box.append(sb); }
+  else box.append(renderResult(v));
+
+  const bd = el("div",{class:"board"}); box.append(bd);
+  const pips = el("div",{class:"pips"}); for(let i=0;i<6;i++) pips.append(el("i",{class: i<n ? (v.won && i===n-1 ? "win":"used") : ""}));
+  bd.append(el("div",{class:"meter"}, el("span",{}, v.done ? (v.won?"Geraden in "+n+"/6":v.gave_up?"Kleine speler 🏳️":"Niet geraden") : S.busy ? "Even checken…" : "Poging "+(n+1)+" van 6"), pips));
+  bd.append(el("div",{class:"colhead"}, ["Club","Pos","Prijs","Eig.","Ptn","SR"+gwNow()].map(t=>el("div",{},t))));
+  const seenKey = (v.practice ? "p"+S.practice.answer : "d"+S.today), seen = S.seen && S.seen.k===seenKey ? S.seen.n : 0;
+  v.rows.forEach((r,ri)=>{
+    const hit = KEYS.every(k=>r.fb[k].c==="exact"), isNew = ri >= seen;
+    const tiles = KEYS.map((k,ki)=>{ const t = tileFor(r,r.fb,k); if(isNew){ t.classList.add("anim"); t.style.setProperty("--i", ki); } return t; });
+    bd.append(el("div",{class:"guess"},
+      el("div",{class:"gname"}, r.web, el("span",{}, hit ? "✓ raak" : "")),
+      el("div",{class:"tiles"}, tiles)));
+  });
+  S.seen = {k:seenKey, n};
+  if(!v.done) bd.append(el("div",{class:"guess empty"}, el("div",{class:"gname"}," "), el("div",{class:"tiles"}, KEYS.map(()=>el("div",{class:"tile"})))));
+  bd.append(el("div",{class:"legend"}, el("span",{},el("b",{style:"background:var(--exact)"}),"Exact"), el("span",{},el("b",{style:"background:var(--close)"}),"Dichtbij"), el("span",{},el("b",{style:"background:var(--miss)"}),"Mis"), el("span",{},"▲▼ richting antwoord"),
+    el("div",{style:"flex-basis:100%;text-align:center;margin-top:2px"},"Dichtbij = prijs ±€1,0m · eigendom ±8% · punten ±10 · SR ±3")));
+
+  if(!v.done){
+    const gb = el("button",{class:"giveup"+(S.confirmGiveUp?" confirm":""), disabled:S.busy, onclick:()=>{
+      if(!S.confirmGiveUp){ S.confirmGiveUp = true; render(); clearTimeout(S.cgT); S.cgT = setTimeout(()=>{ S.confirmGiveUp=false; render(); }, 5000); return; }
+      S.confirmGiveUp = false; giveUp(); }}, S.confirmGiveUp ? "Echt een kleine speler? Tik nog een keer" : "🏳️ Kleine speler");
+    bd.append(el("div",{class:"row",style:"margin:2px 0 12px"}, gb));
+  }
+  if(!v.done){
+    const avail = n>=1 && !S.busy && v.hints<2;
+    let body;
+    if(n<1) body = "Komt vrij na je eerste gok";
+    else if(v.hints===0) body = "Hoeveel goals en assists heeft hij dit seizoen? Tik om te openen";
+    else body = el("span",{}, hintText(v), v.hints===1 ? el("span",{style:"display:block;color:var(--mute);margin-top:4px"},"Tik nog een keer (−5) voor de eerste letter van de achternaam.") : null);
+    const label = "Hint" + (v.hints===0 ? " · −5" : v.hints===1 ? " · nog een keer −5" : "");
+    box.append(el("div",{class:"panel"}, el("h3",{},"Hint"),
+      el("div",{class:"hints",style:"grid-template-columns:1fr"},
+        el("button",{class:"hint wide"+(v.hints?" open":""), disabled:!avail, onclick:()=>{ if(avail) useHint(); }}, el("b",{},label), body))));
+    if(n) box.append(el("div",{class:"panel"}, el("h3",{},"Wat je weet"), el("dl",{class:"know"}, knowledge(v.rows).flatMap(([t,val])=>[el("dt",{},t), el("dd",{class:"num"},val)]))));
+  }
+  if(S.mode==="daily" && !v.done && !n) box.append(el("p",{class:"note",style:"text-align:center;margin-top:6px"}, "Liever eerst oefenen? ", el("button",{class:"linkbtn",onclick:startPractice},"Speel een oefenronde")));
+  if(!v.practice && v.day > 0) box.append(el("p",{class:"note",style:"text-align:center;margin-top:6px"}, el("button",{class:"linkbtn",onclick:openYesterday},"Wie was het gisteren?")));
+  return box;
+}
+
+// Gokverdeling zoals bij Wordle; mark = index van vandaag (0..5 geraden in n, 6 = niet geraden)
+function distBars(dist, mark){
+  if(!dist || !dist.some(x=>x>0)) return null;
+  const max = Math.max(...dist), labels = ["1","2","3","4","5","6","❌"];
+  return el("div",{class:"dist"}, dist.map((c,i)=>el("div",{class:"drow"},
+    el("span",{class:"dl"}, labels[i]),
+    el("span",{class:"dbar"+(i===mark?" now":""), style:"width:"+Math.max(8, Math.round(100*c/max))+"%"}, el("b",{class:"num"}, String(c))))));
+}
+function todayLine(v){
+  const t = v.today; if(!t || !t.played) return null;
+  const pct = Math.round(100*t.won/t.played);
+  return el("div",{class:"todayline"}, t.played===1 ? "Jij bent de eerste die vandaag klaar is." : pct+"% van de "+t.played+" spelers had hem vandaag.");
+}
+
+function renderResult(v){
+  const a = v.answer, n = v.rows.length;
+  const r = el("div",{class:"panel result"});
+  r.append(el("div",{class:"big num"}, String(v.points), el("small",{}," ptn")));
+  if(v.gave_up) r.append(el("div",{class:"sub",style:"margin-top:4px"},"🏳️ Kleine speler 🤏"));
+  if(a){
+    const full = (P[a.code] && P[a.code].full) || a.web;
+    r.append(el("div",{class:"ans"}, full));
+    r.append(el("div",{class:"sub"}, teamN(a.team)+" · "+POSNL[a.pos]+" · "+fmtPrice(a.price)+" · "+fmtOwn(a.own)+" eigendom"));
+  }
+  if(!v.practice){
+    const s = v.stats || {played:0,won:0,streak:0,best:0};
+    const pct = s.played ? Math.round(100*s.won/s.played) : 0;
+    r.append(el("div",{class:"stats"}, [["Gespeeld",s.played],["Gewonnen",pct+"%"],["Reeks",s.streak],["Beste",s.best]].map(([t,val])=>el("div",{},el("b",{class:"num"},String(val)),el("span",{},t)))));
+    const tl = todayLine(v); if(tl) r.append(tl);
+    const db = distBars(s.dist, v.won ? n-1 : 6); if(db) r.append(db);
+    r.append(el("div",{class:"row"}, el("button",{class:"btn",onclick:()=>copyShare(v)},"📤 Deel resultaat"),
+      el("button",{class:"btn ghost",onclick:()=>{S.tab="board";render();loadBoard();}},"Klassement"),
+      el("button",{class:"btn ghost",onclick:startPractice},"Oefenronde")));
+    const cd = el("div",{class:"count num"}); r.append(cd);
+    const tick = () => { const parts=Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:TZ,hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).map(x=>[x.type,x.value])); const left = 86400-(+parts.hour*3600 + +parts.minute*60 + +parts.second); cd.textContent = "Nieuwe puzzel over "+Math.floor(left/3600)+":"+String(Math.floor(left%3600/60)).padStart(2,"0")+":"+String(left%60).padStart(2,"0"); };
+    tick(); clearInterval(renderResult.t); renderResult.t = setInterval(()=>{ if(!document.body.contains(cd)) return clearInterval(renderResult.t); tick(); },1000);
+  } else {
+    r.append(el("div",{class:"row",style:"margin-top:16px"}, el("button",{class:"btn",onclick:startPractice},"Nog een oefenronde"), el("button",{class:"btn ghost",onclick:()=>{S.mode="daily";render();}},"Terug naar vandaag")));
+  }
+  return r;
+}
+
+function shareText(v){
+  const n = v.rows.length, st = (v.stats && v.stats.streak) || 0;
+  const datum = new Date().toLocaleDateString("nl-NL",{timeZone:TZ,weekday:"short",day:"numeric",month:"short"});
+  // Zoals Transferroute: alleen bij geraden de blokjes; niet geraden of opgegeven verraadt niets
+  const rows = v.rows.map(r=>KEYS.map(k=>r.fb[k].c==="exact"?"🟩":r.fb[k].c==="close"?"🟨":"⬛").join(""));
+  const head = "⚽️ "+datum+" ⚽️\n"+BRAND+" #"+(dayIndex(S.today)+1)+(v.hints?" "+"💡".repeat(v.hints):"");
+  const body = v.won ? rows.join("\n")+"\n"+n+"/6 · "+v.points+" ptn" : v.gave_up ? "❌🏳️ kleine speler 🤏" : "❌ niet geraden";
+  const reeks = st>0 ? "🔥 Reeks: "+st+" "+(st===1?"dag":"dagen") : "💔 Reeks: 0";
+  return head+"\n"+body+"\n"+reeks+"\n"+SITE.url;
+}
+async function copyShare(v){
+  const t = shareText(v);
+  try{ await navigator.clipboard.writeText(t); toast("Gekopieerd, plak het in je groepsapp"); }
+  catch(e){ openModal(el("div",{}, el("h2",{text:"Deel je resultaat"}), el("p",{class:"note"},"Selecteer en kopieer de tekst:"), el("textarea",{class:"copyarea",readonly:true,onfocus:e=>e.target.select()}, t))); }
+}
+function copyText(txt){
+  const fallback = () => openModal(el("div",{}, el("h2",{text:"Kopieer de tekst"}), el("textarea",{class:"copyarea",readonly:true}, txt)));
+  try{ navigator.clipboard.writeText(txt).then(()=>toast("Gekopieerd!"), fallback); }catch(e){ fallback(); }
+}
+
+const CHEERS = ["Topper!","Sterk!","Netjes!","Goed zo!","Op het nippertje!","Pfoe, net!"];
+// Eerst de tegels laten omdraaien (6 × 0,32 s + 0,55 s), dan pas de pop-up; het scorescherm komt pas als die dicht is
+const FLIP_MS = 2500;
+function holdThenReveal(won, pop, lostMsg){
+  S.hold = true; clearTimeout(S.holdT);
+  S.holdT = setTimeout(()=>{
+    if(won) pop();
+    else { S.hold = false; render(); toast(lostMsg); }
+  }, FLIP_MS);
+}
+function releaseHold(){
+  closeModal();
+  if(S.hold){ S.hold = false; render(); try{ window.scrollTo({top:0, behavior:"smooth"}); }catch(e){} }
+}
+async function makeGuess(code){
+  if(S.busy) return;
+  if(S.mode==="practice"){
+    const g = S.practice; if(g.guesses.includes(code) || view().done) return;
+    g.guesses.push(code); S.q=""; S.hi=0;
+    const v = view(); if(v.done) holdThenReveal(v.won, ()=>celebrate(view()), "Helaas: het was "+P[g.answer].web);
+    render(); if(!v.done){ const i=document.querySelector(".searchbox input"); if(i) i.focus(); }
+    return;
+  }
+  if(!S.id){ askName(); return; }
+  if(!S.srv || S.srv.done) return;
+  S.busy = true; S.q = ""; S.hi = 0; render();
+  try{
+    if(dayStr()!==S.today){ await refresh(); toast("Er is een nieuwe puzzel!"); return; }
+    const r = await rpc("dn_guess", {...auth(), p_code:code});
+    S.srv = {...S.srv, ...r}; S.err = null;
+    if(r.done){ holdThenReveal(r.won, ()=>celebrate(S.srv), "Helaas: het was "+r.answer.web); loadBoard(); }
+  }catch(e){ toast("Je gok kwam niet aan. Check je verbinding en probeer opnieuw."); }
+  S.busy = false; render();
+  if(S.srv && !S.srv.done){ const i=document.querySelector(".searchbox input"); if(i) i.focus(); }
+}
+async function useHint(){
+  if(S.mode==="practice"){ S.practice.hints++; render(); return; }
+  S.busy = true; render();
+  try{ const r = await rpc("dn_hint", auth()); S.srv = {...S.srv, ...r}; }
+  catch(e){ toast("De hint kwam niet aan. Probeer het opnieuw."); }
+  S.busy = false; render();
+}
+async function giveUp(){
+  if(S.mode==="practice"){ S.practice.gaveUp = true; toast("Het was "+P[S.practice.answer].web); render(); return; }
+  if(!S.id || !S.srv || S.srv.done) return;
+  S.busy = true; render();
+  try{ const r = await rpc("dn_giveup", auth()); S.srv = {...S.srv, ...r}; if(r.answer) toast("Het was "+r.answer.web); loadBoard(); }
+  catch(e){ toast("Opgeven lukte niet. Check je verbinding en probeer opnieuw."); }
+  S.busy = false; render();
+}
+function startPractice(){
+  const pool = LIST.slice(0,240), today = S.srv && S.srv.answer ? S.srv.answer.code : null;
+  let c; do { c = pool[Math.floor(Math.random()*pool.length)].code; } while(c===today);
+  S.practice = {answer:c, guesses:[], hints:0, gaveUp:false}; S.confirmGiveUp = false; S.mode = "practice"; S.tab="play"; S.q=""; render();
+}
+
+/* ---------- feest bij goed geraden (zoals Transferroute) ---------- */
+function lum(hex){ const n=parseInt(hex.slice(1),16), r=n>>16&255, g=n>>8&255, b=n&255; return (0.299*r+0.587*g+0.114*b)/255; }
+// Clubtenues (eigen, vereenvoudigde weergave): body, mouwen, kraag, strepen, letterkleur
+// Clubkleuren voor het shirt in de pop-up (alleen kleuren, geen logo's of sponsors).
+// b = romp, s = mouwen, c = kraag/biezen, i = naam en nummer, st = strepen, band = middenbaan, half = rechterhelft
+const KITS = {
+  AJA:{b:"#ffffff",band:"#d2122e",s:"#ffffff",c:"#d2122e",i:"#111111"}, AZ:{b:"#e30613",s:"#e30613",c:"#ffffff",i:"#ffffff"},
+  GRO:{b:"#ffffff",st:"#008a3e",s:"#008a3e",c:"#008a3e",i:"#111111"}, TWE:{b:"#e2001a",s:"#e2001a",c:"#ffffff",i:"#ffffff"},
+  UTR:{b:"#e30613",s:"#ffffff",c:"#ffffff",i:"#ffffff"}, FEY:{b:"#ffffff",half:"#e30613",s:"#e30613",c:"#111111",i:"#111111"},
+  FOR:{b:"#ffd200",s:"#ffd200",c:"#00843d",i:"#00843d"}, GAE:{b:"#e30613",s:"#ffd200",c:"#ffd200",i:"#ffd200"},
+  NEC:{b:"#d71920",st:"#111111",s:"#d71920",c:"#00843d",i:"#ffffff"}, PEC:{b:"#005ca9",s:"#ffffff",c:"#ffffff",i:"#ffffff"},
+  PSV:{b:"#ed1c24",st:"#ffffff",s:"#ed1c24",c:"#ffffff",i:"#111111"}, HEE:{b:"#0055a5",st:"#ffffff",s:"#0055a5",c:"#ffffff",i:"#ffffff"},
+  SPA:{b:"#e30613",st:"#ffffff",s:"#e30613",c:"#111111",i:"#111111"}, TEL:{b:"#ffffff",s:"#ffffff",c:"#1c3f94",i:"#1c3f94"},
+  EXC:{b:"#e30613",st:"#111111",s:"#111111",c:"#111111",i:"#ffffff"}, ADO:{b:"#00843d",s:"#ffd200",c:"#ffd200",i:"#ffd200"},
+  CAM:{b:"#ffd200",s:"#005ca9",c:"#005ca9",i:"#005ca9"}, WIL:{b:"#e30613",st:"#ffffff",s:"#1c3f94",c:"#1c3f94",i:"#111111"}
+};
+// Keepersshirts: een felle effen kleur die afsteekt tegen het veldshirt van de club
+const GK_KITS = {
+  AJA:"#2b2b2b", AZ:"#7ed957", GRO:"#ff8a00", TWE:"#2b2b2b", UTR:"#00b46e", FEY:"#2b2b2b", FOR:"#3a9bdc", GAE:"#2b2b2b",
+  NEC:"#ffd23f", PEC:"#ff8a00", PSV:"#2b2b2b", HEE:"#ffd23f", SPA:"#2b2b2b", TEL:"#ff6fa8", EXC:"#3a9bdc", ADO:"#2b2b2b",
+  CAM:"#2b2b2b", WIL:"#ffd23f"
+};
+function gkKit(club){
+  const b = GK_KITS[club] || "#7ed957"; const dark = lum(b) < 0.45;
+  return {b, s:b, c: dark ? "#ffffff" : "#111111", i: dark ? "#ffffff" : "#111111", gk:true};
+}
+function shirtSVG(p){
+  const club = teamS(p.team);
+  const k = p.pos===1 ? gkKit(club) : (KITS[club] || {b:COLORS[club]||"#888", s:COLORS[club]||"#888", c:"#ffffff", i:"#ffffff"});
+  const name = String(p.web||"").toUpperCase();
+  const num = (P[p.code] && P[p.code].num != null) ? P[p.code].num : null;
+  const fs = name.length<=6 ? 28 : name.length<=9 ? 24 : name.length<=12 ? 19 : 16;
+  const esc = t => t.replace(/[&<>"]/g, ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+  const body = "M70 42 L56 92 L56 164 Q100 174 144 164 L144 92 L130 42 Q118 52 100 52 Q82 52 70 42Z";
+  const id = "k"+Math.random().toString(36).slice(2,7);
+  const stripes = k.st ? [64,88,112,136].map(x=>`<rect x="${x-6}" y="30" width="12" height="150" fill="${k.st}"/>`).join("") : "";
+  const extra = (k.band ? `<rect x="82" y="30" width="36" height="150" fill="${k.band}"/>` : "") + (k.half ? `<rect x="100" y="30" width="50" height="150" fill="${k.half}"/>` : "");
+  const busy = k.st || k.band || k.half;
+  const outline = 'stroke="rgba(0,0,0,.22)" stroke-width="2.5" stroke-linejoin="round"';
+  return `<svg class="shirt" viewBox="0 0 200 200" aria-hidden="true">
+    <defs><radialGradient id="${id}g" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#ffb703" stop-opacity=".35"/><stop offset="1" stop-color="#2bd67b" stop-opacity=".12"/></radialGradient>
+      <clipPath id="${id}c"><path d="${body}"/></clipPath>
+      <linearGradient id="${id}s" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".5" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient></defs>
+    <circle cx="100" cy="100" r="96" fill="url(#${id}g)"/>
+    ${k.gk ? `<path d="M70 42 L52 48 L12 104 L30 116 L56 92 Z" fill="${k.s}" ${outline}/><path d="M130 42 L148 48 L188 104 L170 116 L144 92 Z" fill="${k.s}" ${outline}/>`
+           : `<path d="M70 42 L52 48 L22 72 L38 102 L56 92 Z" fill="${k.s}" ${outline}/><path d="M130 42 L148 48 L178 72 L162 102 L144 92 Z" fill="${k.s}" ${outline}/>`}
+    ${k.gk ? `<path d="M14 106 L29 115" stroke="${k.c}" stroke-width="6" stroke-linecap="round"/><path d="M186 106 L171 115" stroke="${k.c}" stroke-width="6" stroke-linecap="round"/>`
+           : `<path d="M24 76 L38 100" stroke="${k.c}" stroke-width="6" stroke-linecap="round"/><path d="M176 76 L162 100" stroke="${k.c}" stroke-width="6" stroke-linecap="round"/>`}
+    <path d="${body}" fill="${k.b}"/>
+    <g clip-path="url(#${id}c)">${stripes}${extra}<rect x="50" y="30" width="100" height="150" fill="url(#${id}s)"/></g>
+    <path d="${body}" fill="none" ${outline}/>
+    <path d="M70 42 Q82 52 100 52 Q118 52 130 42" fill="none" stroke="${k.c}" stroke-width="6" stroke-linecap="round"/>
+    <g font-family="Plus Jakarta Sans,system-ui" font-weight="800" text-anchor="middle" fill="${k.i}" ${busy ? 'paint-order="stroke" stroke="'+(k.st||k.band||k.half? (k.i==="#111111"?"#ffffff":"#111111") : k.b)+'" stroke-width="5" stroke-linejoin="round"' : ""}>
+      <text x="100" y="${(num!=null ? 80 : 112)+fs/3}" font-size="${num!=null ? Math.min(fs,22) : fs}" letter-spacing="1" ${name.length*Math.min(fs,num!=null?22:fs)*0.7>80 ? 'textLength="80" lengthAdjust="spacingAndGlyphs"' : ""}>${esc(name)}</text>
+      ${num!=null ? `<text x="100" y="150" font-size="56" letter-spacing="-1">${num}</text>` : ""}
+    </g>
+  </svg>`;
+}
+function ballRain(n){
+  const box = el("div",{class:"ballrain"});
+  for(let i=0;i<n;i++){ const b=el("span",{},"⚽"); const size=18+Math.random()*26, dur=1.8+Math.random()*1.6, delay=Math.random()*1.2;
+    b.style.cssText=`left:${Math.random()*100}vw;font-size:${size}px;animation-duration:${dur}s;animation-delay:${delay}s;--spin:${(Math.random()<.5?-1:1)*(360+Math.random()*540)}deg;--drift:${(Math.random()-.5)*80}px`;
+    box.append(b); }
+  document.body.append(box); setTimeout(()=>box.remove(),5200);
+}
+function confetti(){
+  const c=document.createElement("canvas"); c.className="confetti"; document.body.appendChild(c);
+  const ctx=c.getContext("2d"), dpr=window.devicePixelRatio||1, W=c.width=innerWidth*dpr, H=c.height=innerHeight*dpr;
+  const cols=["#0b1f3a","#2bd67b","#ffb703","#ff6a00","#ffd23f","#ffffff"];
+  const Q=Array.from({length:180},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.35,vx:(Math.random()-.5)*14*dpr,vy:(-Math.random()*16-6)*dpr,s:(5+Math.random()*7)*dpr,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[Math.floor(Math.random()*cols.length)]}));
+  const t0=performance.now();
+  (function f(now){ const t=now-t0; ctx.clearRect(0,0,W,H);
+    for(const p of Q){ p.vy+=.45*dpr; p.vx*=.99; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.globalAlpha=Math.max(0,1-t/3500); ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2); ctx.restore(); }
+    if(t<3500) requestAnimationFrame(f); else c.remove(); })(t0);
+}
+function celebrate(v){
+  const a = v.answer, n = v.rows.length, first = n===1;
+  const full = (P[a.code] && P[a.code].full) || a.web;
+  const box = el("div",{class:"proud"});
+  box.insertAdjacentHTML("beforeend", shirtSVG(a));
+  box.append(el("div",{class:"eyebrow"}, first ? "In één keer!" : "Geraden in "+n+"/6"),
+    el("h2",{}, first ? "Wat een kenner." : n<=3 ? "Goed geraden!" : n<6 ? "Netjes!" : "Op het nippertje!"),
+    el("p",{}, "Het was ", el("b",{}, full), " (" + teamN(a.team) + ")."),
+    el("p",{class:"managore"}, "Jij bent een echte managore ", el("span",{style:"white-space:nowrap"},"fantasia 🧙‍♂️")),
+    el("div",{class:"pts num"}, (v.practice ? "Oefenronde" : "+"+v.points+" ptn")),
+    el("div",{class:"row"}, !v.practice ? el("button",{class:"btn",onclick:()=>copyShare(v)},"📤 Deel resultaat") : null, el("button",{class:"btn ghost",onclick:releaseHold},"Dank je")));
+  openModal(box, false);
+  const bx = document.querySelector(".modal .box"); if(bx) bx.classList.add("pop");
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  ballRain(first ? 40 : 26);
+  if(first) confetti();
+}
+
+/* ---------- poules ---------- */
+const leagueName = code => ((S.leagues.find(l=>l.code===code))||{}).name || ("Poule "+code);
+const INVITE_BASE = SITE.url;
+async function createLeague(name){
+  name = name.trim().slice(0,30);
+  if(!name){ toast("Geef je poule een naam"); return; }
+  if(!S.id){ askName(); return; }
+  try{ const code = await rpc("dn_create_league", {...auth(), p_name:name}); await refresh(); S.scope = code; S.tab = "board"; render(); loadBoard(); showInvite(code); }
+  catch(e){ toast(errText(e)); }
+}
+async function joinLeague(raw){
+  const code = String(raw||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  if(code.length!==6){ toast("Een poulecode heeft 6 tekens"); return; }
+  if(!S.id){ askName(); return; }
+  try{ const name = await rpc("dn_join_league", {...auth(), p_code:code}); await refresh(); S.scope = code; S.tab = "board"; render(); loadBoard(); toast("Je zit nu in "+name); }
+  catch(e){ toast(errText(e)); }
+}
+function leaveLeague(code){
+  openModal(el("div",{}, el("h2",{text:"Poule verlaten?"}),
+    el("p",{class:"note",style:"margin-bottom:14px"},"Je verdwijnt uit de stand van "+leagueName(code)+". Je punten blijven bewaard en met de code kun je altijd terugkomen."),
+    el("div",{class:"row"}, el("button",{class:"btn",onclick:async()=>{ closeModal(); try{ await rpc("dn_leave_league", {...auth(), p_code:code}); await refresh(); S.scope=null; S.rows=null; render(); loadBoard(); toast("Poule verlaten"); }catch(e){ toast(errText(e)); } }},"Verlaten"),
+      el("button",{class:"btn ghost",onclick:closeModal},"Blijven"))), false);
+}
+function inviteText(code){ return "Doe mee met mijn poule “"+leagueName(code)+"” in "+BRAND+", "+TAGLINE+"! Poulecode: "+code+"\n"+INVITE_BASE+"#poule-"+code; }
+function showInvite(code){
+  openModal(el("div",{}, el("h2",{text:"Nodig je vrienden uit"}),
+    el("p",{class:"note",style:"margin-bottom:12px"},"Stuur de link of de code naar je vrienden. Zodra ze meedoen, zien jullie samen de stand van "+leagueName(code)+"."),
+    el("div",{class:"bigcode num"}, code),
+    el("div",{class:"row",style:"margin-top:14px"}, el("button",{class:"btn",onclick:()=>copyText(inviteText(code))},"Kopieer uitnodiging"))));
+}
+async function handlePendingJoin(){
+  if(!S.pendingJoin || !S.id || !S.me) return;
+  const code = S.pendingJoin; S.pendingJoin = null;
+  try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+  if(S.leagues.some(l=>l.code===code)){ S.scope=code; S.tab="board"; render(); loadBoard(); return; }
+  let name = null; try{ name = await rpc("dn_league_name", {p_code:code}); }catch(e){}
+  if(!name){ toast("Poule "+code+" niet gevonden"); return; }
+  openModal(el("div",{}, el("h2",{text:"Je bent uitgenodigd!"}),
+    el("p",{class:"note",style:"margin-bottom:14px"},"Doe mee met poule “"+name+"” en vergelijk elke dag je score met je vrienden."),
+    el("div",{class:"row"}, el("button",{class:"btn",onclick:()=>{ closeModal(); joinLeague(code); }},"Doe mee"), el("button",{class:"btn ghost",onclick:closeModal},"Nee, bedankt"))), false);
+}
+
+/* ---------- klassement ---------- */
+async function loadBoard(){
+  if(!API || !S.id) return;
+  const scope = S.scope;
+  if(!scope || scope==="+new") return;
+  S.boardLoading = true;
+  try{
+    const r = await rpc("dn_board", {...auth(), p_scope: scope});
+    if(scope===S.scope){ S.rows = r || []; S.boardErr = null; }
+  }catch(e){ if(/niet in deze poule/.test(errText(e))){ S.scope=null; } S.boardErr = "Het klassement kan nu niet worden geladen."; }
+  S.boardLoading = false;
+  if(S.tab==="board") render();
+}
+function renderBoard(){
+  const box = el("div");
+  // Alleen poule-klassementen: zonder poule is er geen ranglijst
+  if(S.scope !== "+new" && !S.leagues.some(l=>l.code===S.scope)){ S.scope = S.leagues.length ? S.leagues[S.leagues.length-1].code : null; S.rows = null; }
+  if(!S.scope || S.scope==="+new"){
+    if(S.leagues.length) box.append(leagueChips());
+    box.append(pouleForm(!S.leagues.length));
+    return box;
+  }
+  box.append(leagueChips());
+  const panel = el("div",{class:"panel",style:"padding:12px 12px 14px"});
+  box.append(panel);
+  panel.append(el("h3",{class:"ptitle"}, leagueName(S.scope)));
+  if(!S.rows){ panel.append(el("p",{class:"note",style:"padding:6px 0"}, S.boardErr || "Klassement laden…")); if(!S.boardLoading) loadBoard(); return box; }
+
+  const myDone = !!(S.srv && S.srv.done);
+  if(S.rows.length < 2) panel.append(el("div",{class:"notice"},"Je bent nog de enige. Deel de uitnodiging in je groepsapp, dan verschijnen je vrienden hier."));
+  if(!myDone) panel.append(el("div",{class:"notice"},"Speel eerst de puzzel van vandaag. Daarna zie je hoe de rest het deed."));
+
+  // weekwinnaar van vorige week
+  const lw = Math.max(0, ...S.rows.map(r=>r.last_week_points||0));
+  if(lw>0){
+    const winners = S.rows.filter(r=>r.last_week_points===lw).map(r=>r.name);
+    panel.append(el("div",{class:"winner"}, el("span",{class:"cup"},"🏆"), el("div",{}, el("b",{},"Weekwinnaar vorige week"), el("span",{}, winners.join(" & ")+" · "+lw+" ptn"))));
+    panel.append(el("div",{class:"row",style:"margin:-4px 0 12px"}, el("button",{class:"btn ghost",onclick:()=>shareWeek(S.scope)},"🏆 Deel de weekuitslag")));
+  }
+
+  const tab = S.board==="total" ? "total" : "week";
+  panel.append(el("div",{style:"text-align:center"}, el("div",{class:"seg"},
+    [["week","Deze week"],["total","Totaal"]].map(([k,t])=>el("button",{class:tab===k?"on":"", onclick:()=>{ S.board=k; ls.set("dnl:boardtab",k); render(); }},t)))));
+  const today = new Intl.DateTimeFormat("nl-NL",{timeZone:TZ, weekday:"short", day:"numeric", month:"short"}).format(new Date());
+  panel.append(el("p",{class:"pool-sub"}, tab==="total" ? "Totaalstand · sinds de start" : "Weekstand · vandaag "+today));
+
+  const key = tab==="total" ? "season_points" : "week_points";
+  const rows = S.rows.slice().sort((a,b)=>(b[key]||0)-(a[key]||0) || b.streak-a.streak || String(a.name).localeCompare(String(b.name),"nl"));
+  let rank=0, prev=null; rows.forEach((r,i)=>{ if(r[key]!==prev){ rank=i+1; prev=r[key]; } r.pos=rank; });
+  const t = el("table",{class:"board"}, el("thead",{}, el("tr",{}, el("th",{}), el("th",{},"Speler"), el("th",{},"Vandaag"), el("th",{class:"r"},"Reeks"), el("th",{class:"r"},"Ptn"))));
+  const tb = el("tbody");
+  rows.forEach(r=>{
+    const val = r[key]||0, medal = val>0 && r.pos<=3 ? ["🥇","🥈","🥉"][r.pos-1] : null;
+    let td;
+    if(!r.today_played) td = el("span",{class:"td wait"},"nog niet");
+    else if(r.today_n==null) td = el("span",{class:"td",title:"Speel eerst zelf"},"🔒 gespeeld");
+    else if(r.today_won) td = el("span",{class:"td"},"🟩 "+r.today_n+"/6");
+    else if(r.today_gave_up) td = el("span",{class:"td"},"🏳️ opgegeven");
+    else td = el("span",{class:"td"},"❌ niet geraden");
+    tb.append(el("tr",{class:r.is_me?"me":""},
+      el("td",{class:"pos num"+(medal?" medal":"")}, medal || String(r.pos)),
+      el("td",{class:"nm"}, String(r.name), r.cups>0 ? el("span",{class:"cups",title:r.cups+" keer weekwinnaar"},"🏆"+(r.cups>1?"×"+r.cups:"")) : null, r.is_me ? el("small",{}," (jij)") : null),
+      el("td",{}, td),
+      el("td",{class:"r num"}, r.streak>0 ? "🔥 "+r.streak : "–"),
+      el("td",{class:"r pts num"}, String(val))));
+  });
+  t.append(tb); panel.append(t);
+  panel.append(el("p",{class:"note",style:"margin-top:10px"},"Punten: 60 bij de eerste gok, dan 50, 40… tot 10 bij de zesde; elke hintstap kost 5. Niet geraden of opgegeven is 0. De weekstand begint elke maandag opnieuw; het totaal telt door. Wie een week wint, krijgt een 🏆 die blijft staan. Bij een gelijke stand krijgen beide winnaars er een."));
+  panel.append(el("div",{class:"row",style:"margin-top:12px"}, el("button",{class:"btn",onclick:()=>shareInvite(S.scope)},"Nodig vrienden uit")));
+  const lv = el("button",{class:"mini"+(S.confirmLeave?" confirm":""), onclick:()=>{
+    if(!S.confirmLeave){ S.confirmLeave = true; render(); clearTimeout(S.clT); S.clT = setTimeout(()=>{ S.confirmLeave=false; render(); }, 5000); return; }
+    S.confirmLeave = false; doLeave(S.scope); }}, S.confirmLeave ? "Zeker? Tik nog een keer" : "Verlaat poule");
+  panel.append(el("div",{class:"pool-foot"}, el("span",{class:"note"}, "Code ", el("b",{class:"num"},S.scope), S.me ? " · jij bent "+S.me.name : ""), lv));
+  return box;
+}
+function leagueChips(){
+  const pick = s => { if(S.scope!==s){ S.scope=s; S.rows=null; render(); loadBoard(); } };
+  return el("div",{class:"chips"},
+    S.leagues.map(l=>el("button",{class:S.scope===l.code?"on":"", onclick:()=>pick(l.code)}, l.name)),
+    el("button",{class:"add"+(S.scope==="+new"?" on":""), onclick:()=>{ S.scope="+new"; render(); }},"＋ Poule"));
+}
+// Weekuitslag van vorige week (ma–zo) als tekst voor de groepsapp: top 3, gelijke stand = zelfde plek
+function weekText(code){
+  const d = dayIndex(S.today), start = d - ((d+5)%7) - 7;
+  const fmt = n => new Intl.DateTimeFormat("nl-NL",{timeZone:"UTC", day:"numeric", month:"short"}).format(new Date(dms(START) + n*DAY)).replace(".","");
+  const rows = (S.rows||[]).filter(r=>(r.last_week_points||0)>0).sort((a,b)=>b.last_week_points-a.last_week_points || String(a.name).localeCompare(String(b.name),"nl"));
+  const lines = []; let rank=0, prev=null;
+  rows.forEach((r,i)=>{ if(r.last_week_points!==prev){ rank=i+1; prev=r.last_week_points; } if(rank<=3) lines.push(["🥇","🥈","🥉"][rank-1]+" "+r.name+" · "+r.last_week_points+" ptn"); });
+  return "🏆 Weekuitslag "+leagueName(code)+" ("+fmt(start)+" – "+fmt(start+6)+")\n"+lines.join("\n")+"\n\n"+BRAND+", "+TAGLINE+"\n"+SITE.url;
+}
+async function shareWeek(code){
+  const text = weekText(code);
+  if(navigator.share){ try{ await navigator.share({title:"Weekuitslag", text}); return; }catch(e){ if(e.name==="AbortError") return; } }
+  copyText(text);
+}
+async function shareInvite(code){
+  const text = inviteText(code);
+  if(navigator.share){ try{ await navigator.share({title:BRAND, text}); return; }catch(e){ if(e.name==="AbortError") return; } }
+  copyText(text);
+}
+async function doLeave(code){
+  try{ await rpc("dn_leave_league", {...auth(), p_code:code}); await refresh(); S.scope=null; S.rows=null; render(); loadBoard(); toast("Je hebt de poule verlaten"); }
+  catch(e){ toast(errText(e)); }
+}
+function pouleForm(first){
+  const nameIn = el("input",{placeholder:"Naam, bijv. De Kantine", maxlength:30});
+  const codeIn = el("input",{placeholder:"Code, bijv. K7P2QX", maxlength:6, autocapitalize:"characters"});
+  const mk = () => createLeague(nameIn.value), jn = () => joinLeague(codeIn.value);
+  nameIn.addEventListener("keydown",e=>{ if(e.key==="Enter") mk(); });
+  codeIn.addEventListener("keydown",e=>{ if(e.key==="Enter") jn(); });
+  const intro = !API || !S.id ? (!API ? "Het klassement is nog niet gekoppeld." : "Kies eerst een managernaam.")
+    : first ? "Het klassement is er per poule. Maak een poule en deel de code met je vrienden, of doe mee met de code die je kreeg. Dan zien jullie de onderlinge stand per dag, week en seizoen, met weekbekers 🏆."
+    : "Nog een poule maken of erbij? Je kunt in meerdere poules tegelijk zitten.";
+  return el("div",{class:"panel"}, el("h3",{}, first ? "Klassement" : "Nog een poule"),
+    el("p",{class:"note",style:"margin-bottom:12px"}, intro),
+    el("div",{class:"lbl2"},"Nieuwe poule"),
+    el("div",{class:"field",style:"margin-bottom:12px"}, nameIn, el("button",{class:"btn",onclick:mk},"Maak aan")),
+    el("div",{class:"lbl2"},"Doe mee met een poule"),
+    el("div",{class:"field"}, codeIn, el("button",{class:"btn ghost",onclick:jn},"Doe mee")));
+}
+
+/* ---------- profiel-tab ---------- */
+function renderMe(){
+  const box = el("div");
+  const s = (S.srv && S.srv.stats) || {played:0,won:0,streak:0,best:0};
+  const pct = s.played ? Math.round(100*s.won/s.played) : 0;
+  box.append(el("div",{class:"panel"}, el("h3",{},"Jouw statistieken"),
+    el("div",{class:"stats",style:"margin:0"}, [["Gespeeld",s.played],["Gewonnen",pct+"%"],["Reeks",s.streak],["Beste",s.best]].map(([t,val])=>el("div",{style:"text-align:center"},el("b",{class:"num"},String(val)),el("span",{},t)))),
+    s.dist && s.dist.some(x=>x>0) ? el("h3",{style:"margin-top:14px"},"Gokverdeling") : null,
+    distBars(s.dist, -1)));
+  if(S.me){
+    const inp = el("input",{value:S.me.name||"", maxlength:24, placeholder:"Managernaam"});
+    const save = () => rename(inp.value);
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter") save(); });
+    box.append(el("div",{class:"panel"}, el("h3",{},"Managernaam"), el("div",{class:"field"}, inp, el("button",{class:"btn",onclick:save},"Opslaan")),
+      el("p",{class:"note",style:"margin-top:8px"},"Je nummer #"+S.me.tag+" blijft hetzelfde.")));
+    box.append(el("div",{class:"panel"}, el("h3",{},"Herstelcode"),
+      el("p",{class:"note",style:"margin-bottom:10px"},"Nieuwe telefoon of browser? Met deze code haal je je profiel, punten en poules terug. Bewaar hem goed, bijvoorbeeld in je notities, en deel hem met niemand."),
+      el("div",{class:"bigcode num",style:"font-size:24px"}, fmtRec(S.me.recovery)),
+      el("div",{class:"row",style:"margin-top:12px"}, el("button",{class:"btn",onclick:()=>copyText(fmtRec(S.me.recovery))},"Kopieer herstelcode"))));
+  } else if(API){
+    box.append(el("div",{class:"panel"}, el("h3",{},"Profiel"), el("div",{class:"row"}, el("button",{class:"btn",onclick:askName},"Kies een managernaam"), el("button",{class:"btn ghost",onclick:askRestore},"Profiel herstellen"))));
+  }
+  if(S.me) box.append(el("p",{class:"note",style:"text-align:center;margin-bottom:12px"}, "Ander profiel terugzetten? ", el("button",{class:"linkbtn",onclick:askRestore},"Profiel herstellen met een herstelcode")));
+  box.append(el("div",{class:"panel"}, howTo()));
+  box.append(el("div",{class:"row",style:"margin:6px 0 14px"}, el("button",{class:"btn ghost",onclick:startPractice},"Speel een oefenronde")));
+  box.append(el("div",{class:"panel"}, el("h3",{},"Op je beginscherm"), el("p",{class:"note"},"Zet "+BRAND+" als app op je telefoon. iPhone: open de site in Safari, tik op de deel-knop en kies ‘Zet op beginscherm’. Android: open het menu in Chrome en kies ‘App installeren’.")));
+  box.append(el("p",{class:"note",style:"text-align:center"},"Speldata: Eredivisie na speelronde "+gwNow()+" (bijgewerkt "+String(DATA.updated).slice(0,10)+"). Niet gelieerd aan de Eredivisie, ESPN of de clubs."));
+  return box;
+}
+
+/* ---------- boot ---------- */
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>{ S.tab=b.dataset.tab; render(); if(S.tab==="board") loadBoard(); }));
+window.addEventListener("hashchange",()=>{ const m = location.hash.match(/^#poule-([A-Za-z0-9]{6})$/); if(m){ S.pendingJoin = m[1].toUpperCase(); handlePendingJoin(); } });
+$("#helpBtn").addEventListener("click",()=>openModal(howTo()));
+function syncThemeLbl(){ $("#themeLbl").textContent = document.documentElement.dataset.theme==="dark" ? "dag" : "nacht"; }
+$("#themeBtn").addEventListener("click",()=>{ const t = document.documentElement.dataset.theme==="dark" ? "light" : "dark"; document.documentElement.dataset.theme=t; try{ localStorage.setItem("dnl:theme",t); }catch(e){} syncThemeLbl(); });
+syncThemeLbl();
+setInterval(()=>{ if(dayStr()!==S.today){ S.today=dayStr(); S.mode="daily"; S.rows=null; refresh().then(maybeYesterday); } }, 30000);
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden && dayStr()!==S.today){ S.today=dayStr(); refresh().then(maybeYesterday); } });
+/* ---------- advertenties ----------
+   Uit tot je ze in config.js aanzet. Met Google AdSense toont Google zelf de toestemmingsmelding
+   (Privacy & messaging, een door Google gecertificeerde CMP); zet die in AdSense aan vóór je live gaat.
+   Advertenties staan in vaste plekken buiten #view, zodat ze niet bij elke klik opnieuw laden. */
+function initAds(){
+  const A = CFG.ads || {};
+  const slots = [["ad-bottom", A.slots && A.slots.bottom]];
+  if(A.placeholder){ for(const [id] of slots){ const e = $("#"+id); if(e){ e.classList.remove("hide"); e.classList.add("placeholder"); e.textContent = "Advertentie"; } } return; }
+  if(!A.enabled || !A.client) return;
+  const sc = document.createElement("script");
+  sc.async = true; sc.crossOrigin = "anonymous";
+  sc.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+encodeURIComponent(A.client);
+  document.head.append(sc);
+  for(const [id, slot] of slots){
+    const box = $("#"+id); if(!box || !slot) continue;
+    box.classList.remove("hide");
+    box.append(el("ins",{class:"adsbygoogle", style:"display:block", "data-ad-client":A.client, "data-ad-slot":slot, "data-ad-format":"auto", "data-full-width-responsive":"true"}));
+    try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
+  }
+}
+initAds();
+boot();
+if("serviceWorker" in navigator) window.addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script>
+</body>
+</html>

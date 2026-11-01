@@ -1,0 +1,14 @@
+{
+  "name": "differentiale-nl",
+  "private": true,
+  "description": "Dagelijkse Eredivisie-puzzel (werktitel Differentiale NL)",
+  "scripts": {
+    "build": "python3 build.py",
+    "images": "node scripts/make_images.js",
+    "data": "python3 scripts/update_data.py",
+    "test": "node tests/e2e.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}
