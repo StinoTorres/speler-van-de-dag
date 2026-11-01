@@ -171,7 +171,7 @@ async function restore(code){
 const fmtRec = r => String(r||"").replace(/(.{4})(?=.)/g,"$1-");
 const cleanRec = v => { let t = String(v||"").toUpperCase(); const i = t.lastIndexOf(":"); if(i>=0) t = t.slice(i+1); return t.replace(/[^A-Z0-9]/g,"").slice(-12); };
 function askName(){
-  const inp = el("input",{placeholder:"Bijv. Klopp's Kabouters", maxlength:24});
+  const inp = el("input",{placeholder:"Bijv. Koeman's Kabouters", maxlength:24});
   const btn = el("button",{class:"btn"},"Start");
   const go = async () => { btn.disabled = true; if(await createPlayer(inp.value)){ closeModal(); render(); handlePendingJoin(); } btn.disabled = false; };
   btn.addEventListener("click", go);
