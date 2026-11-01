@@ -90,7 +90,10 @@ Aannames:
    van ESPN of de Eredivisie is. Houd daarom de disclaimer zichtbaar, gebruik geen ESPN- of Eredivisie-namen in je
    merk of domein, en overweeg een eigen accentkleur zodra je commercieel live gaat.
 4. ⚠️ **Naam.** "Speler van de Dag" is duidelijk maar algemeen: lastig als merk te beschermen en veel concurrentie
-   in zoekresultaten. Check het merkenregister (BOIP) en of de domeinnaam vrij is.
+   in zoekresultaten. Merkencheck 1 nov 2026 via TMview (bevat BOIP/Benelux en EUIPO/EU): geen merk "speler van de dag"
+   of "spelervandedag" gevonden; Engelstalig "The best player of the day…" (EUIPO, klasse 41) is beëindigd. De term
+   wordt wel al gebruikt door andere voetbalquizzen (zie hierboven). Omdat de naam beschrijvend is, kan BOIP een
+   aanvraag als woordmerk weigeren; een logo/beeldmerk of een combinatie met een eigen woord is kansrijker.
 5. **Privacy (AVG).** Er zijn geen accounts, e-mails of echte namen. Wel managernaam, uitslagen en een ID in de
    browser. Maak `src/privacy.html` af (TODO's), kies de EU-regio bij Supabase en regel verwijderverzoeken.
 6. **Hosting.** Volgens GitHub is GitHub Pages niet bedoeld als gratis webhosting voor een online bedrijf. Gebruik voor
