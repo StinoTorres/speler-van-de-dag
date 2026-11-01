@@ -11,7 +11,10 @@ mogelijk ("kleine speler"). Delen als blokjes in de groepsapp, poules met week- 
 
 **Waarom dit kan werken**
 - Dagelijkse puzzels hebben een ingebouwde gewoonte (elke dag terugkomen) en verspreiden zich via delen.
-- Er is geen Nederlandstalige Eredivisie-variant met fantasy-cijfers gevonden (zie zoekwerk 1 nov 2026).
+- Er is geen Nederlandstalige Eredivisie-variant met fantasy-cijfers gevonden (zie zoekwerk 1 nov 2026). Wel zijn er
+  algemene "raad de voetballer"-spellen die ook de term "speler van de dag" gebruiken: Onzi (app; land, competitie,
+  club, positie, leeftijd), FC Kluif × BalliQ (dagelijkse quiz met hints) en Half-Time FC. Onderscheid: Eredivisie-only,
+  fantasy-cijfers (prijs, eigendom, punten) en poules met weekbekers.
 - ESPN Fantasy Voetbal heeft ruim 67.000 managers: een kern van fans die prijzen en eigendom kent.
 - Poules maken het sociaal: je speelt tegen je vriendengroep, niet tegen een anonieme ranglijst.
 
@@ -116,7 +119,8 @@ Aannames:
 
 ## 7. Openstaande beslissingen voor de eigenaar
 
-- [ ] Domein (naam: Speler van de Dag).
+- [ ] Domein (naam: Speler van de Dag). Op 1 nov 2026 vrij: spelervandedag.nl, speler-van-de-dag.nl, spelervandedag.com,
+  voetbalpuzzel.nl, devoetbalpuzzel.nl.
 - [ ] Databron: huidige bron (risico), licentie aanvragen, of andere API.
 - [ ] Eenmanszaak of bv voor de inkomsten.
 - [ ] Hoeveel advertenties: één plek (rustig) of twee plekken plus een vaste balk onderin (meer opbrengst).
