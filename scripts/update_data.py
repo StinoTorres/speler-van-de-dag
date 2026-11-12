@@ -22,7 +22,12 @@ from datetime import datetime, timezone
 
 API = os.environ.get("DATA_API", "https://fantasy.espngoal.nl/api").rstrip("/")
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-UA = {"User-Agent": "Mozilla/5.0 (dagelijkse puzzel; data-updater)"}
+UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+      "Accept": "application/json, text/plain, */*", "Accept-Language": "nl-NL,nl;q=0.9,en;q=0.8"}
+
+
+class FetchError(Exception):
+    """De databron is tijdelijk niet bereikbaar (blokkade, onderhoud, time-out). De volgende run probeert het opnieuw."""
 RAW = None  # map met lokale JSON-bestanden (--from-raw)
 
 
@@ -30,15 +35,15 @@ def get(path):
     if RAW:
         name = "bootstrap.json" if path.startswith("/bootstrap-static") else "live%s.json" % path.split("/")[2]
         return json.load(open(os.path.join(RAW, name)))
-    for attempt in range(4):
+    for attempt in range(5):
         try:
             req = urllib.request.Request(API + path, headers=UA)
             with urllib.request.urlopen(req, timeout=30) as r:
                 return json.load(r)
-        except Exception:
-            if attempt == 3:
-                raise
-            time.sleep(3 * (attempt + 1))
+        except Exception as e:
+            if attempt == 4:
+                raise FetchError(f"{path}: {e}")
+            time.sleep(10 * (attempt + 1))
 
 
 def write(name, obj):
@@ -115,6 +120,14 @@ def main():
                 last.get(e["id"], {}).get("total_points", 0),
                 minus(e, "goals_scored"), minus(e, "assists"), minus(e, "clean_sheets"), minus(e, "minutes"),
                 e.get("squad_number")] for e in keep]
+    # Eerst Supabase, dan pas het bestand: mislukt Supabase, dan blijft players.json op de oude speelronde
+    # staan en probeert de volgende run het opnieuw (anders zou hij denken dat alles al klaar is).
+    if not RAW:
+        # code, web, team, pos, price, own, pts, gw, goals, assists
+        rows = [[p[0], p[1], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10]] for p in players]
+        res = supabase_rpc("dn_admin_load", {"p_rows": rows, "p_meta": {"round": lgw, "updated": stamp}})
+        if res is not None:
+            print("Supabase:", res)
     nxt = next((e for e in events if e["id"] == lgw + 1), None)
     write("players.json", {
         "gw": lgw,
@@ -123,16 +136,13 @@ def main():
         "teams": [[t["id"], t["short_name"], t["name"]] for t in boot["teams"]],
         "players": players,
     })
-    if RAW:
-        return
-    # code, web, team, pos, price, own, pts, gw, goals, assists
-    rows = [[p[0], p[1], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10]] for p in players]
-    res = supabase_rpc("dn_admin_load", {"p_rows": rows, "p_meta": {"round": lgw, "updated": stamp}})
-    if res is not None:
-        print("Supabase:", res)
 
 
 if __name__ == "__main__":
     if len(sys.argv) >= 3 and sys.argv[1] == "--from-raw":
         RAW = sys.argv[2]
-    main()
+    try:
+        main()
+    except FetchError as e:
+        # Tijdelijke storing bij de databron: geen foutmelding (en dus geen mail), over 3 uur gewoon opnieuw
+        print(f"::warning::Databron tijdelijk niet bereikbaar, run overgeslagen: {e}")
